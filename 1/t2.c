@@ -18,6 +18,7 @@ long double 	10 	34.0 (113 bits) 	±37 	±4931 (15 bits)
 */
 
 int main(void) {
+  // declare different type variables
   char char_byte;
   unsigned char uchar_byte;
   int int_byte;
@@ -28,6 +29,7 @@ int main(void) {
   double double_byte;
   long double ldouble_byte;
 
+  // create array containing byte sizes
   long unsigned int sizes[] = {
     sizeof(char_byte),
     sizeof(uchar_byte),
@@ -39,6 +41,7 @@ int main(void) {
     sizeof(double_byte),
     sizeof(ldouble_byte)};
 
+    // convert all bytes in array to bits sizes
     for (int i; i < sizeof(sizes)/sizeof(sizes[0]); i++) {
       sizes[i] *= 8;
       printf("%lu ", sizes[i]);
