@@ -18,8 +18,6 @@ int main(void) {
         val_floor,
         val_round,
         val_ceil);
-    } else {
-      scan_value = 0;
     }
   }
   // print done when EOF reached
