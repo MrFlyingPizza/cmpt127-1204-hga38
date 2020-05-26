@@ -44,8 +44,17 @@ int main(void) {
     // convert all bytes in array to bits sizes
     for (int i; i < sizeof(sizes)/sizeof(sizes[0]); i++) {
       sizes[i] *= 8;
-      printf("%lu ", sizes[i]);
     }
-    printf("\n");
+    printf("%lu %lu %lu %lu %lu %lu %lu %lu %lu\n",
+      sizes[0],
+      sizes[1],
+      sizes[2],
+      sizes[3],
+      sizes[4],
+      sizes[5],
+      sizes[6],
+      sizes[7],
+      sizes[8]
+    );
   return 0;
 }
