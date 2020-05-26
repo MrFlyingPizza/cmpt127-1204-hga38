@@ -46,5 +46,6 @@ int main(void) {
       sizes[i] *= 8;
       printf("%lu ", sizes[i]);
     }
+    printf("\n");
   return 0;
 }
