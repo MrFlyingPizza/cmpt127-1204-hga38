@@ -32,7 +32,7 @@ int main(void) {
   // construction loops
   for (unsigned short length_i = 0; length_i < length; length_i++) { // length construction
 
-    for (unsigned short width_i = 0; width_i < length; width_i++) { // width construction
+    for (unsigned short width_i = 0; width_i < width; width_i++) { // width construction
       // if statement to check for first width and last width
       if (length_i == 0 ||
         length_i == length_i_final ||
