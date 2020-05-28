@@ -31,7 +31,7 @@ int main(void) {
     side_pos_left = floor(base_left - height_i*side_ratio_left); //left edge
     side_pos_right = ceil(base_left + height_i*side_ratio_right)-1; // right edge
 
-    for (unsigned short width_i = 0; width_i < width; width_i++) {//triangle construction
+    for (unsigned short width_i = 0; width_i <= side_pos_right; width_i++) {//triangle construction
       if (width_i < side_pos_left ||
         width_i > side_pos_right) {// set empty
 
