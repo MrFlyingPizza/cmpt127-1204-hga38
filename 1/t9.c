@@ -29,7 +29,7 @@ int main(void) {
   for (unsigned short height_i = 1; height_i <= height; height_i++) {//top->bottom
 
     side_pos_left = floor(base_left - height_i*side_ratio_left); //left edge
-    side_pos_right = ceil(base_left + height_i*side_ratio_right); // right edge
+    side_pos_right = ceil(base_left + height_i*side_ratio_right)-1; // right edge
 
     for (unsigned short width_i = 0; width_i < width; width_i++) {//triangle construction
       if (width_i < side_pos_left ||
