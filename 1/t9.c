@@ -25,6 +25,7 @@ int main(void) {
 
   char building_block;
 
+  // Ive developed a hatred for newline characters...
   // construction
   for (unsigned short height_i = 1; height_i <= height; height_i++) {//top->bottom
 
