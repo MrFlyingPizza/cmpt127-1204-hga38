@@ -11,3 +11,6 @@ int identical( int arr1[], int arr2[], unsigned int len );
 
 // returns a reverse arrays
 void reverse( int arr[], unsigned int len );
+
+// check if two arrays have the same values
+int scrambled( unsigned int arr1[], unsigned int arr2[], unsigned int len );
