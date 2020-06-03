@@ -1,4 +1,5 @@
 #include <stdio.h> // for printf()
+#include "funcs.h"
 
 int main( void )
 {
