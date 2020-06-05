@@ -1,7 +1,7 @@
 // scrambled.c
 // check if two arrays have the same values
-#include <assert.h>
-#include <stdio.h>
+// #include <assert.h>
+// #include <stdio.h>
 
 int scrambled( unsigned int arr1[], unsigned int arr2[], unsigned int len ) {
   unsigned short same = 1;
@@ -40,8 +40,8 @@ int scrambled( unsigned int arr1[], unsigned int arr2[], unsigned int len ) {
       if (exists == 0) {
         same = 0;
       }
-      printf("%hu", exists);
-      printf("%hu\n", same);
+      // printf("%hu", exists);
+      // printf("%hu\n", same);
       outter_i++;
     }
 
@@ -52,15 +52,15 @@ int scrambled( unsigned int arr1[], unsigned int arr2[], unsigned int len ) {
 }
 
 
-int main(void) {
-  unsigned int ar1[3] = {1,2,3};
-  unsigned int ar2[3] = {1,2,3};
-  int result1 = scrambled(ar1, ar2, 3);
-  assert(result1 == 1);
-
-  unsigned int ar3[3] = {1,3,0};
-  unsigned int ar4[3] = {3,2,1};
-  int result2 = scrambled(ar3, ar4, 3);
-  assert(result2 == 0);
-  return 0;
-}
+// int main(void) {
+//   unsigned int ar1[3] = {1,2,3};
+//   unsigned int ar2[3] = {1,2,3};
+//   int result1 = scrambled(ar1, ar2, 3);
+//   assert(result1 == 1);
+//
+//   unsigned int ar3[3] = {1,3,0};
+//   unsigned int ar4[3] = {3,2,1};
+//   int result2 = scrambled(ar3, ar4, 3);
+//   assert(result2 == 0);
+//   return 0;
+// }
