@@ -1,7 +1,7 @@
 // scrambled.c
 // check if two arrays have the same values
-#include <assert.h>
-#include <stdio.h>
+//#include <assert.h>
+//#include <stdio.h>
 
 int scrambled( unsigned int arr1[], unsigned int arr2[], unsigned int len ) {
   unsigned short check_arr[len]; // val found punch card
@@ -14,7 +14,7 @@ int scrambled( unsigned int arr1[], unsigned int arr2[], unsigned int len ) {
   unsigned short same = 1;
   while (same == 1 && out_i < len) {
     searched_val = arr1[out_i]; // assign val to search in second array
-    printf("loop iter: %u searched val: %u\n", out_i, searched_val);
+    //printf("loop iter: %u searched val: %u\n", out_i, searched_val);
     found = 0;
     in_i = 0;
     while (found == 0 && in_i < len) { // loop through second array
@@ -45,15 +45,15 @@ int scrambled( unsigned int arr1[], unsigned int arr2[], unsigned int len ) {
 }
 
 
-int main(void) {
-  unsigned int ar1[4] = {1,2,3,4};
-  unsigned int ar2[4] = {1,2,3,4};
-  int result1 = scrambled(ar1, ar2, 4);
-  assert(result1 == 1);
-
-  unsigned int ar3[4] = {1,2,3,4};
-  unsigned int ar4[4] = {1,2,3,4};
-  int result2 = scrambled(ar3, ar4, 4);
-  assert(result2 == 1);
-  return 0;
-}
+// int main(void) {
+//   unsigned int ar1[4] = {1,2,3,4};
+//   unsigned int ar2[4] = {1,2,3,4};
+//   int result1 = scrambled(ar1, ar2, 4);
+//   assert(result1 == 1);
+//
+//   unsigned int ar3[4] = {1,2,3,4};
+//   unsigned int ar4[4] = {1,2,3,4};
+//   int result2 = scrambled(ar3, ar4, 4);
+//   assert(result2 == 1);
+//   return 0;
+// }
