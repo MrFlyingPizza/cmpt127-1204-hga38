@@ -17,7 +17,7 @@ int scrambled( unsigned int arr1[], unsigned int arr2[], unsigned int len ) {
   unsigned short same = 1;
   while (same == 1 && out_i < len) {
     searched_val = arr1[out_i]; // assign val to search in second array
-    printf("loop iter: %u searched val: %u\n", out_i, searched_val);
+    // printf("loop iter: %u searched val: %u\n", out_i, searched_val);
     found = 0;
     in_i = 0;
     while (found == 0 && in_i < len) { // loop through second array
