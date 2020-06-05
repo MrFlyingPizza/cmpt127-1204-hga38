@@ -1,66 +1,59 @@
 // scrambled.c
 // check if two arrays have the same values
-// #include <assert.h>
-// #include <stdio.h>
+#include <assert.h>
+#include <stdio.h>
 
 int scrambled( unsigned int arr1[], unsigned int arr2[], unsigned int len ) {
+  unsigned short check_arr[len]; // val found punch card
+
+  unsigned short found; // inner loop variables
+  unsigned int in_i;
+
+  unsigned int out_i = 0; // outer loop variables
+  unsigned int searched_val;
   unsigned short same = 1;
-  unsigned short exists = 0;
-  unsigned int outter_i = 0;
-  unsigned int inner_i = 0;
-  unsigned int* arp1;
-  unsigned int* arp2;
-  unsigned short direction = 0;
-  while (same != 0 && direction <= 1) {
-
-    if (direction == 0) {
-      arp1 = &arr1[0];
-      arp2 = &arr2[0];
-    } else {
-      arp1 = &arr2[0];
-      arp2 = &arr1[0];
+  while (same == 1 && out_i < len) {
+    searched_val = arr1[out_i]; // assign val to search in second array
+    printf("loop iter: %u searched val: %u\n", out_i, searched_val);
+    found = 0;
+    in_i = 0;
+    while (found == 0 && in_i < len) { // loop through second array
+      if (searched_val == arr2[in_i] && check_arr[in_i] == 0) { // set punchcard
+        found = 1;
+        check_arr[in_i] = 1;
+      }
+      in_i++;
     }
 
-    same = 1;
-    exists = 0;
-    outter_i = 0;
-    inner_i = 0;
-
-    while (outter_i < len && same == 1) {
-
-      exists = 0;
-      inner_i = 0;
-      while (inner_i < len && exists == 0) {
-
-        if (arp1[outter_i] == arp2[inner_i]) {
-          exists = 1;
-        }
-        inner_i++;
-      }
-      if (exists == 0) {
-        same = 0;
-      }
-      // printf("%hu", exists);
-      // printf("%hu\n", same);
-      outter_i++;
+    if (found == 0) { // exit outter loop when one value doesnt exist in the second list
+      same = 0;
     }
 
-    direction++;
-
+    out_i++;
   }
+
+  // check for left over values
+  out_i = 0;
+  while (same == 1 && out_i < len) {
+    if (check_arr[out_i] == 0) {
+      same = 0;
+    }
+    out_i++;
+  }
+
   return same;
 }
 
 
-// int main(void) {
-//   unsigned int ar1[3] = {1,2,3};
-//   unsigned int ar2[3] = {1,2,3};
-//   int result1 = scrambled(ar1, ar2, 3);
-//   assert(result1 == 1);
-//
-//   unsigned int ar3[3] = {1,3,0};
-//   unsigned int ar4[3] = {3,2,1};
-//   int result2 = scrambled(ar3, ar4, 3);
-//   assert(result2 == 0);
-//   return 0;
-// }
+int main(void) {
+  unsigned int ar1[4] = {1,2,3,4};
+  unsigned int ar2[4] = {1,2,3,4};
+  int result1 = scrambled(ar1, ar2, 4);
+  assert(result1 == 1);
+
+  unsigned int ar3[4] = {1,2,3,4};
+  unsigned int ar4[4] = {1,2,3,4};
+  int result2 = scrambled(ar3, ar4, 4);
+  assert(result2 == 1);
+  return 0;
+}
