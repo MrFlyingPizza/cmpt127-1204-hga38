@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 int main() {
-  unsigned int len = 10090;
+  unsigned int len = 200000;
   char read_string[len];
   char ch;
   unsigned short new_word = 0;
