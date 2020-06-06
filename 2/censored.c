@@ -4,32 +4,56 @@
 #include <string.h>
 
 int main(int argc, char const *argv[]) {
-  unsigned int len = 10090;
-  char read_string[len];
-  char ch;
-  unsigned long int ch_i = 0;
-  unsigned int argstrlens[argc];
-
-  // compute string lengths of each censor substring argument
-  for (unsigned int lencalc_i = 1; lencalc_i < argc; lencalc_i++) {
-    argstrlens[lencalc_i] = strlen(argv[lencalc_i]);
+  // calc argument lengths
+  unsigned int argLengths[argc];
+  for (unsigned int argLen_i; argLen_i < argc; argLen_i++) {
+    argLengths[argLen_i] = strlen(argv[argLen_i]);
   }
 
-  // construct censored string
-  while (ch_i < len && (ch = getchar()) != EOF) {
+  // censor substrings
+  char ch;
+  char buffer[128];
 
-    do { // repeat until at either none or least one matching word is found
-      unsigned int arg_i = 0;
-      unsigned short ch_matching = 0;
+  unsigned int arg_i;
+  unsigned short found;
 
-      do {  //repeat until all matching characters are searched
-        arg_i++;
+  unsigned int argCh_i;
+  unsigned short argMatch;
 
-      } while(ch_matching && arg_i < argstrlens[argv_i]);
+  while ((ch = getchar()) != EOF) {
+    //printf("Current ch: %c\n", ch);
+    arg_i = 0;
+    found = 0;
+    while (arg_i < argc && found == 0 && ch != EOF) { //
+      //printf("arg_i: %u\n", arg_i);
+      argMatch = 1;
+      argCh_i = 0;
+      while (argMatch == 1 && argCh_i < argLengths[arg_i] && ch != EOF) {
 
-    } while();
+        if (ch == argv[arg_i][argCh_i]) {
+          buffer[argCh_i] = ch;
+          ch = getchar();
+          argCh_i++;
+        } else {
+          argMatch = 0;
+          for (unsigned short buffer_i = 0; buffer_i < argCh_i; buffer_i++) {
+            printf("%c", buffer[buffer_i]);
+          }
+        }
 
-    read_string[ch_i] = ch;
+      }
+
+      if (argMatch == 1) {
+        found = 1;
+      }
+
+      arg_i++;
+    }
+
+    if (found == 1) {
+      printf("CENSORED");
+    }
+    printf("%c", ch);
 
   }
   return 0;
