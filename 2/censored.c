@@ -21,11 +21,11 @@ int main(int argc, char const *argv[]) {
   char ch;
   char buffer[128] = {0};
 
-  unsigned int arg_i;
-  unsigned short found;
+  unsigned int arg_i = 0;
+  unsigned short found = 0;
 
-  unsigned int argCh_i;
-  unsigned short argMatch;
+  unsigned int argCh_i = 0;
+  unsigned short argMatch = 1;
 
   while ((ch = getchar()) != EOF) {
     //printf("Current ch: %c\n", ch);
