@@ -6,7 +6,7 @@
 #include <string.h>
 
 int main(int argc, char const *argv[]) {
-  char ch;
+  char ch = '';
   float alpha[26] = {0};
   unsigned int total = 0;
   while ((ch = getchar()) != EOF) {
