@@ -7,9 +7,9 @@
 
 int main(int argc, char const *argv[]) {
   // print parameters
-  for (int argarg = 0; argarg < argc; argarg++) {
-    printf("%s\n", argv[argarg]);
-  }
+  // for (int argarg = 0; argarg < argc; argarg++) {
+  //   printf("%s\n", argv[argarg]);
+  // }
 
   // calc argument lengths
   unsigned int argLengths[argc];
