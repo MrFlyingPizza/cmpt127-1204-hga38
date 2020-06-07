@@ -6,7 +6,7 @@
 
 int main(int argc, char const *argv[]) {
   char ch;
-  double alpha[26];
+  float alpha[26];
   unsigned int total = 0;
   while ((ch = getchar()) != EOF) {
     if (ch >= 97 && ch <= 122) {
