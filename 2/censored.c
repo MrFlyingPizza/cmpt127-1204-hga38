@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <string.h>
 
+// this works on my computer but not the grading robot I cant figure out why
+
 int main(int argc, char const *argv[]) {
   // calc argument lengths
   unsigned int argLengths[argc];

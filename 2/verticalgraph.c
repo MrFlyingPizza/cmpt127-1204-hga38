@@ -29,7 +29,7 @@ int main(int argc, char const *argv[]) {
 
   int highest_value = searchHighest(values, 80);
   int abs_highest = highest_value;
-  printf("%d", highest_value);
+  //printf("%d", highest_value);
   char point;
   for (int range_i = 0; range_i < abs_highest; range_i++) {
 
