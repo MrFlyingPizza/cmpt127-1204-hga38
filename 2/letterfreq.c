@@ -1,5 +1,6 @@
 // letterfreq.c
 // counts the frequency of each letter in input stream
+// this works on my computer but not the grading robot and I cant figure out why
 
 #include <stdio.h>
 #include <string.h>
