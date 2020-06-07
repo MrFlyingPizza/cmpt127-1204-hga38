@@ -4,7 +4,7 @@
 // #include <stdio.h>
 
 int scrambled( unsigned int arr1[], unsigned int arr2[], unsigned int len ) {
-  unsigned short check_arr[len] = {0}; // val found punch card
+  unsigned short check_arr[len]; // val found punch card
   for (unsigned int i = 0; i < len; i++) {
     check_arr[i] = 0;
   }
