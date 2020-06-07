@@ -12,7 +12,7 @@ int main(int argc, char const *argv[]) {
 
   // censor substrings
   char ch;
-  char buffer[128];
+  char buffer[128] = {0};
 
   unsigned int arg_i;
   unsigned short found;
