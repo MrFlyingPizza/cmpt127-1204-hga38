@@ -52,6 +52,8 @@ int main(int argc, char const *argv[]) {
 
       if (argMatch == 1) {
         found = 1;
+      } else {
+        found = 0;
       }
 
       arg_i++;
