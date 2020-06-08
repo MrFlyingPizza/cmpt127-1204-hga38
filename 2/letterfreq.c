@@ -19,8 +19,13 @@ int main(int argc, char const *argv[]) {
     }
   }
 
+  float freq = 0;
   for (unsigned short alpha_i = 0; alpha_i < 26; alpha_i++) {
-    printf("%c %.4f\n", 97 + alpha_i, alpha[alpha_i]/total);
+    freq = alpha[alpha_i]/total;
+    if (freq > 0) {
+      printf("%c %.4f\n", 97 + alpha_i, freq);
+    }
+
   }
   return 0;
 }
