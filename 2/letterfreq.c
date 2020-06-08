@@ -6,10 +6,10 @@
 #include <string.h>
 
 int main(int argc, char const *argv[]) {
-  char ch;
   float alpha[26] = {0};
   unsigned int total = 0;
-  while ((char ch = getchar()) != EOF) {
+  char ch;
+  while ((ch = getchar()) != EOF) {
     if (ch >= 97 && ch <= 122) {
       total++;
       alpha[ch-97]++;
