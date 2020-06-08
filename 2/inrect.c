@@ -8,10 +8,10 @@ int InRectangle(float pt[2], float rect[4]) {
 
     if (rect[0] < rect[2]) { //x
       xS = rect[0];
-      xL = rect[2]
+      xL = rect[2];
     } else {
       xS = rect[2];
-      xL = rect[0]
+      xL = rect[0];
     }
 
     if (rect[1] < rect[3]) { //y
