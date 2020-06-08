@@ -34,3 +34,8 @@ int InRectangle(float pt[2], float rect[4]) {
   }
   return inBoundary;
 }
+// test compile main
+// int main(int argc, char const *argv[]) {
+//   /* code */
+//   return 0;
+// }
