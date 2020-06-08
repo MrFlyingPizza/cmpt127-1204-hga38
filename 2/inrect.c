@@ -4,7 +4,7 @@
 int InRectangle(float pt[2], float rect[4]) {
   float xS, xL, yS, yL;
   // orders rectangle bounds to left small right large
-  for (unsigned short xbound_i = 0; xbound_i < 2; xbound_i++) {
+  for (unsigned short bound_i = 0; bound_i < 2; bound_i++) {
 
     if (rect[0] < rect[2]) { //x
       xS = rect[0];
