@@ -17,10 +17,10 @@ int main(int argc, char const *argv[])
 	}
 	
 	// scan stdin
-	char readstring [200000] = {0};
+	char readstring [1000] = {0};
 	char ch = 0;
 	unsigned int ch_i = 0;
-	while ((ch = getchar()) != EOF && ch_i < 200000)
+	while ((ch = getchar()) != EOF && ch_i < 1000)
 	{
 		readstring[ch_i] = ch;
 		ch_i++;
@@ -43,7 +43,7 @@ int main(int argc, char const *argv[])
 	}
 	
 	// print edited string
-	for (size_t read_i = 0; read_i < 200000; read_i++)
+	for (size_t read_i = 0; read_i < 1000; read_i++)
 	{
 		if (readstring[read_i] != 0 || readstring[read_i] != IGNORE_CHAR)
 		{
