@@ -15,6 +15,7 @@ int main(int argc, char const *argv[]) {
 	unsigned int argLengths[argc];
 	for (unsigned int argLen_i; argLen_i < argc; argLen_i++) {
 		argLengths[argLen_i] = strlen(argv[argLen_i]);
+		printf("%s", argv[argLen_i]);
 	}
 
 	// censor substrings
