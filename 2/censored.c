@@ -45,7 +45,7 @@ int main(int argc, char const *argv[])
 	// print edited string
 	for (size_t read_i = 0; read_i < 1000; read_i++)
 	{
-		if (readstring[read_i] != 0 || readstring[read_i] != IGNORE_CHAR)
+		if (readstring[read_i] != 0 && readstring[read_i] != IGNORE_CHAR)
 		{
 			if (readstring[read_i] == CENSOR_PLACEHOLDER_CHAR)
 			{
