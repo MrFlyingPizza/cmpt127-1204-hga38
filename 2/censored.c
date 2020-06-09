@@ -1,70 +1,63 @@
-// censored.c
-// censor given argument words from stdin
+// censor.c v2
+// censor certain substring from stdin
 #include <stdio.h>
 #include <string.h>
 
-// this works on my computer but not the grading robot I cant figure out why
+int main(int argc, char const *argv[])
+{
+	// CONSTANTS
+	char const IGNORE_CHAR = 30;
+	char const CENSOR_PLACEHOLDER_CHAR = 127;
 
-int main(int argc, char const *argv[]) {
-	// print parameters
-	// for (int argarg = 0; argarg < argc; argarg++) {
-	//   printf("%s\n", argv[argarg]);
-	// }
-
-	// calc argument lengths
+	// get argument lengths
 	unsigned int argLengths[argc];
-	for (unsigned int argLen_i; argLen_i < argc; argLen_i++) {
-		argLengths[argLen_i] = strlen(argv[argLen_i]);
-		printf("%s", argv[argLen_i]);
+	for (size_t i = 1; i < argc; i++)
+	{
+		argLengths[i] = strlen(argv[i]);
 	}
-
-	// censor substrings
-	char ch = ' ';
-	char buffer[128] = {0};
-
-	unsigned int arg_i = 0;
-	unsigned short found = 0;
-
-	unsigned int argCh_i = 0;
-	unsigned short argMatch = 1;
-
-	while ((ch = getchar()) != EOF) {
-		//printf("Current ch: %c\n", ch);
-		arg_i = 0;
-		found = 0;
-		while (arg_i < argc && found == 0 && ch != EOF) { //
-		//printf("arg_i: %u\n", arg_i);
-		argMatch = 1;
-		argCh_i = 0;
-		while (argMatch == 1 && argCh_i < argLengths[arg_i] && ch != EOF) {
-
-			if (ch == argv[arg_i][argCh_i]) {
-			buffer[argCh_i] = ch;
-			ch = getchar();
-			argCh_i++;
-			} else {
-			argMatch = 0;
-			for (unsigned short buffer_i = 0; buffer_i < argCh_i; buffer_i++) {
-				printf("%c", buffer[buffer_i]);
+	
+	// scan stdin
+	char readstring [200000] = {0};
+	char ch = 0;
+	unsigned int ch_i = 0;
+	while ((ch = getchar()) != EOF && ch_i < 200000)
+	{
+		readstring[ch_i] = ch;
+		ch_i++;
+	}
+	
+	// remove found substring
+	for (size_t arg_i = 1; arg_i < argc; arg_i++)
+	{
+		char* matchPointer;
+		while ((matchPointer = strstr(readstring, argv[arg_i])) != NULL)
+		{
+			matchPointer[0] = CENSOR_PLACEHOLDER_CHAR;
+			for (size_t argCh_i = 1; argCh_i < argLengths[arg_i]; argCh_i++)
+			{
+				matchPointer[argCh_i] = IGNORE_CHAR;
 			}
-			}
-
+			
 		}
-
-		if (argMatch == 1) {
-			found = 1;
-		} else {
-			found = 0;
-		}
-
-		arg_i++;
-		}
-
-		if (found == 1) {
-		printf("CENSORED");
-		}
-		printf("%c", ch);
 
 	}
-	return 0;
+	
+	// print edited string
+	for (size_t read_i = 0; read_i < 200000; read_i++)
+	{
+		if (readstring[read_i] != 0 || readstring[read_i] != IGNORE_CHAR)
+		{
+			if (readstring[read_i] == CENSOR_PLACEHOLDER_CHAR)
+			{
+				printf("CENSORED");
+			}
+			else
+			{
+				printf("%c", readstring[read_i]);
+			}
+			
+		}
+		
+	}
+	
 }
