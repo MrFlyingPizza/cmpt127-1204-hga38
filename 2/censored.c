@@ -51,7 +51,7 @@ int main(int argc, char const *argv[])
         else
         {
           argMatch = 0;
-          for (unsigned short buffer_i = 0; buffer_i <= argCh_i; buffer_i++)
+          for (unsigned short buffer_i = 0; buffer_i < argCh_i; buffer_i++)
           {
             printf("%c", buffer[buffer_i]);
           }
