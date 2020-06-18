@@ -141,7 +141,22 @@ void flip_horizontal( uint8_t array[],
               unsigned int cols, 
               unsigned int rows )
 {
-  // your code here
+  uint8_t temp_color = 0;
+  size_t pivot = (size_t) rows/2;
+  for (size_t row = 0; row < rows; row++)
+  {
+    for (size_t current = 0; current < pivot; current++)
+    {
+      int rindex = row*cols + cols - 1 - current;
+      int lindex = row*cols + current;
+      temp_color = array[rindex];
+      array[rindex] = array[lindex];
+      array[lindex] = temp_color;
+      
+    }
+    
+  }
+  
 }
 
 // flip the image top-to-bottom.
