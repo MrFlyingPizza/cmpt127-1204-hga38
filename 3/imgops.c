@@ -54,7 +54,7 @@ void zero( uint8_t array[],
 	   unsigned int cols,
 	   unsigned int rows )
 {
-  // your code here.
+  memset(array, 0, cols*rows * sizeof(array[0]));
 }
 
 // Returns a pointer to a freshly allocated array that contains the
@@ -65,7 +65,13 @@ uint8_t* copy( const uint8_t array[],
            unsigned int cols, 
            unsigned int rows )
 {
-  // your code here
+  uint8_t* copy_ptr;
+  copy_ptr = malloc(cols*rows * sizeof(array[0]));
+  if (copy_ptr != NULL)
+  {
+    return copy_ptr;
+  }
+  
   return NULL;
 }
 
@@ -75,8 +81,17 @@ uint8_t min( const uint8_t array[],
 	     unsigned int cols, 
 	     unsigned int rows )
 {
-  // your code here
-  return 0;
+  uint8_t darkest = 255;
+  for (size_t i = 0; i < cols*rows; i++)
+  {
+    if (array[i] < darkest)
+    {
+      darkest = array[i];
+    }
+    
+  }
+  
+  return darkest;
 }
 
 // Return the lightest color that appears in the array; i.e. the
@@ -85,8 +100,17 @@ uint8_t max( const uint8_t array[],
 		 unsigned int cols, 
 		 unsigned int rows )
 {
-  // your code here
-  return 0;
+  uint8_t lightest = 0;
+  for (size_t i = 0; i < cols*rows; i++)
+  {
+    if (array[i] > lightest)
+    {
+      lightest = array[i];
+    }
+    
+  }
+  
+  return lightest;
 }
 
 // TASK 2
@@ -98,7 +122,15 @@ void replace_color(  uint8_t array[],
 		     uint8_t pre_color,
 		     uint8_t post_color )
 {
-  // your code here
+  for (size_t i = 0; i < cols*rows; i++)
+  {
+    if (array[i] == pre_color)
+    {
+      array[i] = post_color;
+    }
+    
+  }
+  
 }
 
 /* TASK 3  - two functions */
