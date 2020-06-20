@@ -134,17 +134,18 @@ void flip_horizontal(uint8_t array[],
                      unsigned int cols,
                      unsigned int rows)
 {
-    uint8_t temp_color = 0;
-    size_t pivot = (size_t)rows / 2;
-    for (size_t row = 0; row < rows; row++)
+    unsigned int len = cols*rows;
+    unsigned int pivot = cols/2;
+    for (size_t greaterindex = 0; greaterindex < len; greaterindex += cols) // cyl rows
     {
-        for (size_t current = 0; current < pivot; current++)
+        for (size_t lesserindex = 0; lesserindex < pivot; lesserindex++) // cyl half columns
         {
-            int lindex = row * cols + current;
-            int rindex = row * cols + cols - 1 - current;
-            temp_color = array[rindex];
-            array[rindex] = array[lindex];
-            array[lindex] = temp_color;
+            unsigned int temp = 0;
+            unsigned int lindex = greaterindex;
+            unsigned int rindex = greaterindex + cols - 1;
+            temp = array[lindex];
+            array[lindex] = array[rindex];
+            array[rindex] = temp;
         }
     }
 }
@@ -155,7 +156,7 @@ void flip_horizontal(uint8_t array[],
 */
 
 // flip the image top-to-bottom.
-void flip_vertical(uint8_t array[],
+void flip_vertical(uint8_t array[], // ** FAIL
                    unsigned int cols,
                    unsigned int rows)
 {
@@ -166,7 +167,7 @@ void flip_vertical(uint8_t array[],
         for (size_t current = 0; current < pivot; current++)
         {
             int uindex = col + current * rows;
-            int dindex = col + (rows - 1 - current);
+            int dindex = col + (rows - 1 - current) * cols;
         }
     }
 }
