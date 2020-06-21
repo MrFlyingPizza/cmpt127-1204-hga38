@@ -386,7 +386,7 @@ void region_set(uint8_t array[],
                 unsigned int bottom,
                 uint8_t color)
 {
-    unsigned int left_limit, right_limit, top_limit, bottom_limit;
+    unsigned int right_limit, bottom_limit;
     right_limit = (right < cols) ? right : cols;
     bottom_limit = (bottom < rows) ? bottom : rows;
     for (size_t y = top; y < bottom_limit; y++)
@@ -413,7 +413,20 @@ unsigned long int region_integrate(const uint8_t array[],
                                    unsigned int right,
                                    unsigned int bottom)
 {
-    // your code here
+    unsigned int left_limit, right_limit, top_limit, bottom_limit;
+    right_limit = (right < cols) ? right : cols;
+    bottom_limit = (bottom < rows) ? bottom : rows;
+
+    unsigned int sum = 0;
+
+    for (size_t y = top; y < bottom_limit; y++)
+    {
+        for (size_t x = left; x < right_limit; x++)
+        {
+            sum += get_pixel(array, cols, rows, x, y);
+        }
+        
+    }
     return 0;
 }
 
