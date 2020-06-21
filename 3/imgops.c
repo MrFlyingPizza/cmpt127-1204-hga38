@@ -219,7 +219,27 @@ int locate_color(const uint8_t array[],
                  unsigned int *x,
                  unsigned int *y)
 {
-    // your code here
+    unsigned int absIndex;
+    unsigned int found = 0;
+    unsigned int row, col = 0;
+
+    while (row < rows && found == 1) // cartesian looping system
+    {
+        col = 0;
+        while (col < cols && found == 1)
+        {
+            // computing index:
+            absIndex = row * cols + col;
+            if (array[absIndex] == color)
+            {
+                x = col;
+                y = row;
+                return 1;
+            }
+            col++;
+        }
+        row++;
+    }
     return 0;
 }
 
