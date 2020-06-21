@@ -337,15 +337,10 @@ uint8_t *half(const uint8_t array[],
         for (size_t row = 0; row < rows; row += offset)
         {
             // sum pixel values and compute average
-            for (size_t colOffset = 0; colOffset < offset; colOffset++)
-            {
-                pixel_sum = 0;
-                for (size_t rowOffset = 0; rowOffset < offset; rowOffset++)
-                {
-                    pixel_sum += get_pixel(array, cols, rows, col + colOffset, row + rowOffset);
-                }
-                
-            }
+            pixel_sum = get_pixel(array, cols, rows, col, row);
+            pixel_sum += get_pixel(array, cols, rows, col + 1, row);
+            pixel_sum += get_pixel(array, cols, rows, col, row + 1);
+            pixel_sum += get_pixel(array, cols, rows, col + 1, row + 1);
             avg_color = pixel_sum / (offset * offset);
             set_pixel(new_img, half_cols, half_rows, col/2, row/2, avg_color);
         }
