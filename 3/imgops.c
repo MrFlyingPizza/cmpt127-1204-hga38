@@ -256,7 +256,11 @@ void invert(uint8_t array[],
             unsigned int cols,
             unsigned int rows)
 {
-    // your code here
+    for (size_t absIndex = 0; absIndex < cols * rows; absIndex++)
+    {
+        array[absIndex] = 255 - array[absIndex];
+    }
+    
 }
 
 /* TASK 6 */
