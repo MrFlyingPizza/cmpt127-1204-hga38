@@ -13,3 +13,8 @@ int main(int argc, char const *argv[]) {
   }
   return 0;
 }
+
+// int main(int argc, char const *argv[])
+// {
+//   strstr(argv[1],argv[2])?printf("true\n"):printf("false\n");return 0;
+// }
