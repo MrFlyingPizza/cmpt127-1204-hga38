@@ -266,7 +266,7 @@ void scale_brightness(uint8_t array[],
     uint8_t scaled_color;
     for (size_t i = 0; i < cols * rows; i++)
     {
-        scaled_color = array[i] * scale_factor;
+        scaled_color = round(array[i] * scale_factor);
         if (scaled_color > 255)
         {
             scaled_color = 255;
@@ -315,7 +315,21 @@ uint8_t *half(const uint8_t array[],
               unsigned int cols,
               unsigned int rows)
 {
-    // your code here
+    // make image even:
+    if (cols % 2 != 0)
+        cols--;
+
+    if (rows % 2 != 0)
+        rows--;
+
+    // compute new img size to allocate memory
+    unsigned int half_cols = cols / 2;
+    unsigned int half_rows = rows / 2;
+
+    uint8_t new_img = malloc(half_cols * half_rows * sizeof(uint8_t));
+
+    // compute new img
+
     return NULL;
 }
 
