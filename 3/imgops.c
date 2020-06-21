@@ -232,8 +232,8 @@ int locate_color(const uint8_t array[],
             absIndex = row * cols + col;
             if (array[absIndex] == color)
             {
-                x = col;
-                y = row;
+                *x = col;
+                *y = row;
                 return 1;
             }
             col++;
