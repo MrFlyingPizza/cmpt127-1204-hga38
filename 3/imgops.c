@@ -234,11 +234,16 @@ int locate_color(const uint8_t array[],
             {
                 *x = col;
                 *y = row;
-                return 1;
+                found = 1;
             }
             col++;
         }
         row++;
+    }
+    
+    if (found == 1)
+    {
+        return 1;
     }
     return 0;
 }
