@@ -386,8 +386,18 @@ void region_set(uint8_t array[],
                 unsigned int bottom,
                 uint8_t color)
 {
-    unsigned int left_limit, right_limit, up_limit, down_limit;
-
+    unsigned int left_limit, right_limit, top_limit, bottom_limit;
+    right_limit = (right < cols) ? right : cols;
+    bottom_limit = (bottom < rows) ? bottom : rows;
+    for (size_t y = top; y < bottom_limit; y++)
+    {
+        for (size_t x = left; x < right_limit; x++)
+        {
+            set_pixel(array, cols, rows, x, y, color);
+        }
+        
+    }
+    
 }
 
 /* TASK 10 */
