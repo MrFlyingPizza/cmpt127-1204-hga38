@@ -221,7 +221,7 @@ int locate_color(const uint8_t array[],
 {
     unsigned int absIndex;
     unsigned int found = 0;
-    unsigned int row, col = 0;
+    unsigned int row = 0, col = 0;
 
     while (row < rows && found == 0) // cartesian looping system
     {
