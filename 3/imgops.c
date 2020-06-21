@@ -285,7 +285,22 @@ void normalize(uint8_t array[],
                unsigned int cols,
                unsigned int rows)
 {
-    // your code here
+    uint8_t minColor = min(array, cols, rows);
+    uint8_t maxColor = max(array, cols, rows);
+
+    for (size_t i = 0; i < rows * cols; i++)
+    {
+        if (array[i] == minColor)
+        {
+            array[i] = 255;
+        }
+        else if (array[i] == maxColor)
+        {
+            array[i] = 0;
+        }
+        
+    }
+    
 }
 
 /* TASK 8 */
