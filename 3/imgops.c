@@ -175,31 +175,22 @@ void flip_vertical(uint8_t array[],
                    unsigned int cols,
                    unsigned int rows)
 {
-    unsigned int uindex;
-    unsigned int dindex;
-    unsigned int absColStartIndex;
-    unsigned int absUindex;
-    unsigned int absDindex;
     unsigned int pivot = rows/2;
 
-    uint8_t temp;
+    unsigned int upper = 0;
+    unsigned int lower = 0;
 
-    for (size_t col = 0; col < cols; col++) // relative indexing
+    uint8_t temp = 0;
+
+    for (size_t offset = 0; offset < cols; offset++)
     {
-        for (size_t row = 0; row < pivot; row++) // relative indexing
+        for (size_t rowNum = 0; rowNum < pivot; rowNum++)
         {
-            uindex = row;
-            dindex = rows - row - 1;
-
-            // absolute value indexing:
-            absColStartIndex = col;
-            absUindex = uindex * rows + absColStartIndex;
-            absDindex = dindex * rows + absColStartIndex;
-
-            // value swapping:
-            temp = array[absUindex];
-            array[absUindex] = array[absDindex];
-            array[absDindex] = temp;
+            upper = rowNum * cols + offset;
+            lower = (rows - 1 - rowNum) * cols + offset;
+            temp = array[upper];
+            array[upper] = array[lower];
+            array[lower] = temp;
         }
         
     }
