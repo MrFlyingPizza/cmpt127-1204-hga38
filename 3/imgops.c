@@ -285,21 +285,20 @@ void normalize(uint8_t array[],
                unsigned int rows)
 {
     uint8_t minColor = min(array, cols, rows);
-    uint8_t maxColor = max(array, cols, rows);
-
-    for (size_t i = 0; i < rows * cols; i++)
+    unsigned int len = cols * rows;
+    
+    for (size_t i = 0; i < len; i++)
     {
-        if (array[i] == minColor)
-        {
-            array[i] = 0;
-        }
-        else if (array[i] == maxColor)
-        {
-            array[i] = 255;
-        }
-        
+        array[i] -= minColor;
     }
     
+    uint8_t maxColor = max(array, cols, rows);
+
+    for (size_t i = 0; i < len; i++)
+    {
+        array[i] = array[i] * (255 / (double) maxColor);
+    }
+    maxColor = max(array, cols, rows);
 }
 
 /* TASK 8 */
