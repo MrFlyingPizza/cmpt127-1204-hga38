@@ -342,7 +342,7 @@ uint8_t *half(const uint8_t array[],
             pixel_sum += get_pixel(array, cols, rows, col, row + 1);
             pixel_sum += get_pixel(array, cols, rows, col + 1, row + 1);
             avg_color = pixel_sum / (offset * offset);
-            set_pixel(new_img, half_cols, half_rows, col/2, row/2, avg_color);
+            set_pixel(new_img, half_cols, half_rows, col/2, row/2, avg_color + 1);
         }
         
     }
@@ -386,7 +386,8 @@ void region_set(uint8_t array[],
                 unsigned int bottom,
                 uint8_t color)
 {
-    
+    unsigned int left_limit, right_limit, up_limit, down_limit;
+
 }
 
 /* TASK 10 */
