@@ -16,9 +16,6 @@ int searchHighest(int* values, int len) { // find highest value
 
 int main(int argc, char const *argv[]) {
   int values[80] = {0};
-  for (unsigned short values_i = 0; values_i < 80; values_i++) {
-    values[values_i] = 0;
-  }
   int scan_value;
 
   unsigned short scan_amount = 0;
