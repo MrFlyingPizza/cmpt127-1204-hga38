@@ -134,20 +134,36 @@ void flip_horizontal(uint8_t array[],
                      unsigned int cols,
                      unsigned int rows)
 {
-    unsigned int len = cols*rows;
-    unsigned int pivot = cols/2;
-    for (size_t greaterindex = 0; greaterindex < len; greaterindex += cols) // cyl rows
+    unsigned int lindex;
+    unsigned int rindex;
+    unsigned int absRowStartIndex;
+    unsigned int absLindex;
+    unsigned int absRindex;
+    unsigned int pivot;
+
+    uint8_t temp;
+
+    for (size_t row = 0; row < rows; row++) // relative indexing
     {
-        for (size_t lesserindex = 0; lesserindex < pivot; lesserindex++) // cyl half columns
+        pivot = cols/2;
+        for (size_t col = 0; col < pivot; col++) // relative indexing
         {
-            unsigned int temp = 0;
-            unsigned int lindex = greaterindex;
-            unsigned int rindex = greaterindex + cols - 1;
-            temp = array[lindex];
-            array[lindex] = array[rindex];
-            array[rindex] = temp;
+            lindex = col;
+            rindex = cols - col - 1;
+
+            // absolute indexing:
+            absRowStartIndex = row * cols;
+            absLindex = absRowStartIndex + lindex;
+            absRindex = absRowStartIndex + rindex;
+
+            // value swapping:
+            temp = array[absLindex];
+            array[absLindex] = array[absRindex];
+            array[absRindex] = temp;
         }
+        
     }
+    
 }
 /*
 ###
@@ -156,20 +172,11 @@ void flip_horizontal(uint8_t array[],
 */
 
 // flip the image top-to-bottom.
-void flip_vertical(uint8_t array[], // ** FAIL
+void flip_vertical(uint8_t array[],
                    unsigned int cols,
                    unsigned int rows)
 {
-    uint8_t temp_color = 0;
-    size_t pivot = (size_t)cols / 2;
-    for (size_t col = 0; col < cols; col++)
-    {
-        for (size_t current = 0; current < pivot; current++)
-        {
-            int uindex = col + current * rows;
-            int dindex = col + (rows - 1 - current) * cols;
-        }
-    }
+
 }
 
 /* TASK 4 */
