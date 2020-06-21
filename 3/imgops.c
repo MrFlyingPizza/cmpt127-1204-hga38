@@ -262,7 +262,7 @@ void scale_brightness(uint8_t array[],
                       unsigned int rows,
                       double scale_factor)
 {
-    uint8_t scaled_color;
+    unsigned int scaled_color;
     for (size_t i = 0; i < cols * rows; i++)
     {
         scaled_color = round(array[i] * scale_factor);
@@ -270,7 +270,7 @@ void scale_brightness(uint8_t array[],
         {
             scaled_color = 255;
         }
-        array[i] = scaled_color;
+        array[i] = (uint8_t) scaled_color;
     }
     
 }
@@ -291,11 +291,11 @@ void normalize(uint8_t array[],
     {
         if (array[i] == minColor)
         {
-            array[i] = 255;
+            array[i] = 0;
         }
         else if (array[i] == maxColor)
         {
-            array[i] = 0;
+            array[i] = 255;
         }
         
     }
@@ -392,7 +392,7 @@ void region_set(uint8_t array[],
                 unsigned int bottom,
                 uint8_t color)
 {
-    // your code here
+    
 }
 
 /* TASK 10 */
