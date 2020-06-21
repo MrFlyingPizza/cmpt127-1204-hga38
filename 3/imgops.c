@@ -296,7 +296,7 @@ void normalize(uint8_t array[],
 
     for (size_t i = 0; i < len; i++)
     {
-        array[i] = array[i] * (255 / (double) maxColor);
+        array[i] = array[i] * (255 / (double) maxColor) + 1;
     }
     maxColor = max(array, cols, rows);
 }
@@ -342,7 +342,7 @@ uint8_t *half(const uint8_t array[],
             pixel_sum += get_pixel(array, cols, rows, col, row + 1);
             pixel_sum += get_pixel(array, cols, rows, col + 1, row + 1);
             avg_color = pixel_sum / (offset * offset);
-            set_pixel(new_img, half_cols, half_rows, col/2, row/2, avg_color + 1);
+            set_pixel(new_img, half_cols, half_rows, col/2, row/2, avg_color);
         }
         
     }
