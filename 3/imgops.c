@@ -139,13 +139,12 @@ void flip_horizontal(uint8_t array[],
     unsigned int absRowStartIndex;
     unsigned int absLindex;
     unsigned int absRindex;
-    unsigned int pivot;
+    unsigned int pivot = cols/2;
 
     uint8_t temp;
 
     for (size_t row = 0; row < rows; row++) // relative indexing
     {
-        pivot = cols/2;
         for (size_t col = 0; col < pivot; col++) // relative indexing
         {
             lindex = col;
@@ -176,7 +175,35 @@ void flip_vertical(uint8_t array[],
                    unsigned int cols,
                    unsigned int rows)
 {
+    unsigned int uindex;
+    unsigned int dindex;
+    unsigned int absColStartIndex;
+    unsigned int absUindex;
+    unsigned int absDindex;
+    unsigned int pivot = rows/2;
 
+    uint8_t temp;
+
+    for (size_t col = 0; col < cols; col++) // relative indexing
+    {
+        for (size_t row = 0; row < pivot; row++) // relative indexing
+        {
+            uindex = row;
+            dindex = rows - row - 1;
+
+            // absolute value indexing:
+            absColStartIndex = col;
+            absUindex = uindex * rows + absColStartIndex;
+            absDindex = dindex * rows + absColStartIndex;
+
+            // value swapping:
+            temp = array[absUindex];
+            array[absUindex] = array[absDindex];
+            array[absDindex] = temp;
+        }
+        
+    }
+    
 }
 
 /* TASK 4 */
