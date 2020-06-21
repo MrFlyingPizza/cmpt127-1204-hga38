@@ -105,7 +105,6 @@ uint8_t max(const uint8_t array[],
             lightest = array[i];
         }
     }
-
     return lightest;
 }
 
@@ -315,7 +314,7 @@ uint8_t *half(const uint8_t array[],
               unsigned int cols,
               unsigned int rows)
 {
-    // make image even:
+    // make image even (ignore bottom edge & right edge):
     if (cols % 2 != 0)
         cols--;
 
@@ -326,11 +325,34 @@ uint8_t *half(const uint8_t array[],
     unsigned int half_cols = cols / 2;
     unsigned int half_rows = rows / 2;
 
-    uint8_t new_img = malloc(half_cols * half_rows * sizeof(uint8_t));
+    uint8_t* new_img = malloc(half_cols * half_rows * sizeof(uint8_t));
 
     // compute new img
+    unsigned int offset = 2;
+    unsigned int pixel_sum = 0;
 
-    return NULL;
+    uint8_t avg_color = 0;
+
+    for (size_t col = 0; col < cols; col += offset)
+    {
+        for (size_t row = 0; row < rows; row += offset)
+        {
+            // sum pixel values and compute average
+            for (size_t colOffset = 0; colOffset < offset; colOffset++)
+            {
+                pixel_sum = 0;
+                for (size_t rowOffset = 0; rowOffset < offset; rowOffset++)
+                {
+                    pixel_sum += get_pixel(array, cols, rows, col + colOffset, row + rowOffset);
+                }
+                
+            }
+            avg_color = pixel_sum / (offset * offset);
+            set_pixel(new_img, half_cols, half_rows, col/2, row/2, avg_color);
+        }
+        
+    }
+    return new_img;
 }
 
 /*-------------------------------------------------
