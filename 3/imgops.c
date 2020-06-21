@@ -263,9 +263,15 @@ void scale_brightness(uint8_t array[],
                       unsigned int rows,
                       double scale_factor)
 {
+    uint8_t scaled_color;
     for (size_t i = 0; i < cols * rows; i++)
     {
-        array[i] = round(array[i] * scale_factor);
+        scaled_color = array[i] * scale_factor;
+        if (scaled_color > 255)
+        {
+            scaled_color = 255;
+        }
+        array[i] = scaled_color;
     }
     
 }
