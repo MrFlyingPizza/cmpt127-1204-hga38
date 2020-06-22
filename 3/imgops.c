@@ -322,20 +322,31 @@ uint8_t *half(const uint8_t array[],
         cols--;
     }
     uint8_t *new_array = malloc((cols/2) * (rows/2) * sizeof(uint8_t));
-    uint8_t *shifted_array = malloc(cols * rows * sizeof(uint8_t));
+    uint8_t *shifted_array[cols * rows];
+
     // formulate original array to remove excluded column
     unsigned int shift = 0;
-    uint8_t *shifted_array;
     if (oddCol == 1)
     {
         for (size_t i = 0; i < cols * rows; i++)
         {
-            (i % cols == 0) ? ++shift : shift;
+            (i % cols == 1) ? ++shift : shift;
             shifted_array[i] = array[i + shift];
         }
         
     }
-    return shifted_array;
+    
+    // generate halved image
+    double sum = 0;
+    for (size_t row = 0; row < rows; row += 2)
+    {
+        for (size_t col = 0; col < cols; col += 2)
+        {
+            sum = get_pixel(shifted_array, cols, rows, col, row);
+        }
+        
+    }
+    return new_array;
 }
 
 /*-------------------------------------------------
@@ -402,7 +413,7 @@ unsigned long int region_integrate(const uint8_t array[],
                                    unsigned int right,
                                    unsigned int bottom)
 {
-    unsigned int left_limit, right_limit, top_limit, bottom_limit;
+    unsigned int right_limit, bottom_limit;
     right_limit = (right < cols) ? right : cols;
     bottom_limit = (bottom < rows) ? bottom : rows;
 
@@ -433,7 +444,7 @@ uint8_t *region_copy(const uint8_t array[],
                      unsigned int right,
                      unsigned int bottom)
 {
-    unsigned int left_limit, right_limit, top_limit, bottom_limit;
+    unsigned int right_limit, bottom_limit;
     right_limit = (right < cols) ? right : cols;
     bottom_limit = (bottom < rows) ? bottom : rows;
 
