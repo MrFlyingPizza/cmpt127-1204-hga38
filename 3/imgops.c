@@ -322,7 +322,7 @@ uint8_t *half(const uint8_t array[],
         cols--;
     }
     uint8_t *new_array = malloc((cols/2) * (rows/2) * sizeof(uint8_t));
-    uint8_t *shifted_array[cols * rows];
+    uint8_t shifted_array[cols * rows];
 
     // formulate original array to remove excluded column
     unsigned int shift = 0;
@@ -337,12 +337,18 @@ uint8_t *half(const uint8_t array[],
     }
     
     // generate halved image
-    double sum = 0;
+    double sum;
+    double avg_color;
     for (size_t row = 0; row < rows; row += 2)
     {
         for (size_t col = 0; col < cols; col += 2)
         {
             sum = get_pixel(shifted_array, cols, rows, col, row);
+            sum += get_pixel(shifted_array, cols, rows, col + 1, row);
+            sum += get_pixel(shifted_array, cols, rows, col, row + 1);
+            sum += get_pixel(shifted_array, cols, rows, col + 1, row + 1);
+            avg_color = sum / 4;
+            set_pixel(new_array, cols/2, rows/2, col/2, row/2, avg_color);
         }
         
     }
