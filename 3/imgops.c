@@ -313,40 +313,41 @@ uint8_t *half(const uint8_t array[],
               unsigned int cols,
               unsigned int rows)
 {
-    // make image even (ignore bottom edge & right edge):
+    // allocation memory for new array
+    (rows % 2 == 1) ? rows-- : rows;
+    unsigned int oddCol = 0;
     if (cols % 2 == 1)
-        cols--;
-
-    if (rows % 2 == 1)
-        rows--;
-
-    // compute new img size to allocate memory
-    unsigned int half_cols = cols / 2;
-    unsigned int half_rows = rows / 2;
-
-    uint8_t* new_img = malloc(half_cols * half_rows * sizeof(uint8_t));
-
-    // compute new img
-    unsigned int offset = 2;
-    unsigned int pixel_sum = 0;
-
-    double avg_color = 0;
-
-    for (size_t col = 0; col < cols; col += offset)
     {
-        for (size_t row = 0; row < rows; row += offset)
-        {
-            // sum pixel values and compute average
-            pixel_sum = get_pixel(array, cols, rows, col, row);
-            pixel_sum += get_pixel(array, cols, rows, col + 1, row);
-            pixel_sum += get_pixel(array, cols, rows, col, row + 1);
-            pixel_sum += get_pixel(array, cols, rows, col + 1, row + 1);
-            avg_color = pixel_sum / (double) (offset * offset);
-            set_pixel(new_img, half_cols, half_rows, col/2, row/2, round(avg_color));
-        }
-        
+        oddCol = 1;
+        cols--;
     }
-    return new_img;
+    uint8_t *new_array = malloc((cols/2) * (rows/2));
+
+    // formulate original array to remove excluded column
+    unsigned int len = rows * cols;
+    unsigned int shift = 0;
+    unsigned int sum;
+    unsigned int relCol;
+    double avg_color;
+
+    for (size_t row = 0; row < rows; row += 2)
+    {
+        for (size_t col = 0; col < cols; col += 2)
+        {
+            relCol = col;
+            col += shift;
+            sum = get_pixel(array, cols, rows, col, row);
+            sum += get_pixel(array, cols, rows, col++, row);
+            sum += get_pixel(array, cols, rows, col, row++);
+            sum += get_pixel(array, cols, rows, col++, row++);
+            avg_color = sum / 4;
+            set_pixel(new_array, cols/2, rows/2, relCol, row, avg_color);
+        }
+        (oddCol == 1) ? shift++ : shift;
+    }
+    
+    
+
 }
 
 /*-------------------------------------------------
