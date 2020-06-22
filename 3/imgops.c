@@ -314,11 +314,11 @@ uint8_t *half(const uint8_t array[],
               unsigned int rows)
 {
     // make image even (ignore bottom edge & right edge):
-    if (cols % 2 != 0)
-        cols--;
+    if (cols % 2 == 1)
+        cols -= 1;
 
-    if (rows % 2 != 0)
-        rows--;
+    if (rows % 2 == 1)
+        rows -= 1;
 
     // compute new img size to allocate memory
     unsigned int half_cols = cols / 2;
@@ -330,7 +330,7 @@ uint8_t *half(const uint8_t array[],
     unsigned int offset = 2;
     unsigned int pixel_sum = 0;
 
-    uint8_t avg_color = 0;
+    double avg_color = 0;
 
     for (size_t col = 0; col < cols; col += offset)
     {
@@ -341,7 +341,7 @@ uint8_t *half(const uint8_t array[],
             pixel_sum += get_pixel(array, cols, rows, col + 1, row);
             pixel_sum += get_pixel(array, cols, rows, col, row + 1);
             pixel_sum += get_pixel(array, cols, rows, col + 1, row + 1);
-            avg_color = pixel_sum / (offset * offset);
+            avg_color = pixel_sum / (double) (offset * offset);
             set_pixel(new_img, half_cols, half_rows, col/2, row/2, round(avg_color));
         }
         
