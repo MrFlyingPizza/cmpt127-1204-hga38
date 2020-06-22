@@ -315,10 +315,10 @@ uint8_t *half(const uint8_t array[],
 {
     // make image even (ignore bottom edge & right edge):
     if (cols % 2 == 1)
-        cols -= 1;
+        cols--;
 
     if (rows % 2 == 1)
-        rows -= 1;
+        rows--;
 
     // compute new img size to allocate memory
     unsigned int half_cols = cols / 2;
