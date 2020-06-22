@@ -427,7 +427,7 @@ unsigned long int region_integrate(const uint8_t array[],
         }
         
     }
-    return 0;
+    return sum;
 }
 
 /* TASK 11 */
