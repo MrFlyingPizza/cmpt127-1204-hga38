@@ -314,40 +314,28 @@ uint8_t *half(const uint8_t array[],
               unsigned int rows)
 {
     // allocation memory for new array
-    (rows % 2 == 1) ? rows-- : rows;
+    (rows % 2 == 1) ? --rows : rows;
     unsigned int oddCol = 0;
     if (cols % 2 == 1)
     {
         oddCol = 1;
         cols--;
     }
-    uint8_t *new_array = malloc((cols/2) * (rows/2));
-
+    uint8_t *new_array = malloc((cols/2) * (rows/2) * sizeof(uint8_t));
+    uint8_t *shifted_array = malloc(cols * rows * sizeof(uint8_t));
     // formulate original array to remove excluded column
-    unsigned int len = rows * cols;
     unsigned int shift = 0;
-    unsigned int sum;
-    unsigned int relCol;
-    double avg_color;
-
-    for (size_t row = 0; row < rows; row += 2)
+    uint8_t *shifted_array;
+    if (oddCol == 1)
     {
-        for (size_t col = 0; col < cols; col += 2)
+        for (size_t i = 0; i < cols * rows; i++)
         {
-            relCol = col;
-            col += shift;
-            sum = get_pixel(array, cols, rows, col, row);
-            sum += get_pixel(array, cols, rows, col++, row);
-            sum += get_pixel(array, cols, rows, col, row++);
-            sum += get_pixel(array, cols, rows, col++, row++);
-            avg_color = sum / 4;
-            set_pixel(new_array, cols/2, rows/2, relCol, row, avg_color);
+            (i % cols == 0) ? ++shift : shift;
+            shifted_array[i] = array[i + shift];
         }
-        (oddCol == 1) ? shift++ : shift;
+        
     }
-    
-    
-
+    return shifted_array;
 }
 
 /*-------------------------------------------------
