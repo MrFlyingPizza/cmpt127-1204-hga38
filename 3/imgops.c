@@ -313,42 +313,22 @@ uint8_t *half(const uint8_t array[],
               unsigned int cols,
               unsigned int rows)
 {
-    // allocation memory for new array
-    (rows % 2 == 1) ? --rows : rows;
-    unsigned int oddCol = 0;
-    if (cols % 2 == 1)
-    {
-        oddCol = 1;
-        cols--;
-    }
-    uint8_t *new_array = malloc((cols/2) * (rows/2) * sizeof(uint8_t));
-    uint8_t shifted_array[cols * rows];
+    unsigned int half_cols = (cols % 2 == 1) ? (cols - 1)/2 : cols/2;
+    unsigned int half_rows = (rows % 2 == 1) ? (rows - 1)/2 : rows/2;
 
-    // formulate original array to remove excluded column
-    unsigned int shift = 0;
-    if (oddCol == 1)
+    uint8_t *new_array = malloc(half_cols * half_rows);
+
+    double sum, avg_color;
+    for (unsigned int row = 0; row < half_rows; row++)
     {
-        for (size_t i = 0; i < cols * rows; i++)
+        for (unsigned int col = 0; col < half_cols; col++)
         {
-            (i % cols == 1) ? ++shift : shift;
-            shifted_array[i] = array[i + shift];
-        }
-        
-    }
-    
-    // generate halved image
-    double sum;
-    double avg_color;
-    for (size_t row = 0; row < rows; row += 2)
-    {
-        for (size_t col = 0; col < cols; col += 2)
-        {
-            sum = get_pixel(shifted_array, cols, rows, col, row);
-            sum += get_pixel(shifted_array, cols, rows, col + 1, row);
-            sum += get_pixel(shifted_array, cols, rows, col, row + 1);
-            sum += get_pixel(shifted_array, cols, rows, col + 1, row + 1);
+            sum = get_pixel(array, cols, rows, 2 * col, 2 * row);
+            sum += get_pixel(array, cols, rows, 2 * col + 1, 2 * row);
+            sum += get_pixel(array, cols, rows, 2 * col, 2 * row + 1);
+            sum += get_pixel(array, cols, rows, 2 * col + 1, 2 * row + 1);
             avg_color = sum / 4;
-            set_pixel(new_array, cols/2, rows/2, col/2, row/2, avg_color);
+            set_pixel(new_array, half_cols, half_rows, col, row, avg_color);
         }
         
     }
