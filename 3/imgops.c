@@ -327,7 +327,7 @@ uint8_t *half(const uint8_t array[],
             sum += get_pixel(array, cols, rows, 2 * col + 1, 2 * row);
             sum += get_pixel(array, cols, rows, 2 * col, 2 * row + 1);
             sum += get_pixel(array, cols, rows, 2 * col + 1, 2 * row + 1);
-            avg_color = sum / 4;
+            avg_color = round(sum / 4);
             set_pixel(new_array, half_cols, half_rows, col, row, avg_color);
         }
         
@@ -434,18 +434,15 @@ uint8_t *region_copy(const uint8_t array[],
     right_limit = (right < cols) ? right : cols;
     bottom_limit = (bottom < rows) ? bottom : rows;
 
-    uint8_t *copy = malloc((top - bottom) * (right - left) * sizeof(uint8_t));
-
-    unsigned int copy_index = 0;
+    unsigned int sum = 0;
 
     for (size_t y = top; y < bottom_limit; y++)
     {
         for (size_t x = left; x < right_limit; x++)
         {
-            copy[copy_index] = get_pixel(array, cols, rows, x, y);
-            copy_index++;
+            sum += get_pixel(array, cols, rows, x, y);
         }
         
     }
-    return copy;
+    return sum;
 }
