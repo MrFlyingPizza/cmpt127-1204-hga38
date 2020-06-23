@@ -449,3 +449,6 @@ uint8_t *region_copy(const uint8_t array[],
     }
     return copy;
 }
+
+// this robot needs to run otherwise im going to lose it
+// like why does it take 13 hours to run i thought it only took 1
