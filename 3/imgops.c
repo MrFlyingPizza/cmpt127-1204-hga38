@@ -430,7 +430,6 @@ uint8_t *region_copy(const uint8_t array[],
                      unsigned int right,
                      unsigned int bottom)
 {
-    unsigned int right_limit, bottom_limit;
     if (bottom - top == 0 || right - left == 0 || copy == NULL)
     {
         return NULL;
