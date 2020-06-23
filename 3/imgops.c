@@ -434,6 +434,11 @@ uint8_t *region_copy(const uint8_t array[],
     right_limit = (right < cols) ? right : cols;
     bottom_limit = (bottom < rows) ? bottom : rows;
     uint8_t *copy = malloc((right - left) * (bottom - top));
+    if (copy == NULL)
+    {
+        return NULL;
+    }
+    
 
     uint8_t color = 0;
 
@@ -442,6 +447,10 @@ uint8_t *region_copy(const uint8_t array[],
         for (size_t x = left; x < right_limit; x++)
         {
             color = get_pixel(array, cols, rows, x, y);
+            if (color == NULL)
+            {
+                return NULL;
+            }
             set_pixel(copy, right - left, bottom - top, x - left, y - top, color);
         }
         
