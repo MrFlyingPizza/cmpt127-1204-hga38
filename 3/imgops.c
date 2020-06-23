@@ -431,13 +431,12 @@ uint8_t *region_copy(const uint8_t array[],
                      unsigned int bottom)
 {
     unsigned int right_limit, bottom_limit;
-    uint8_t *copy = malloc((right - left) * (bottom - top));
-
     if (bottom - top == 0 || right - left == 0 || copy == NULL)
     {
         return NULL;
     }
-    
+    uint8_t *copy = malloc((right - left) * (bottom - top));
+
     uint8_t color = 0;
 
     for (size_t y = top; y < bottom; y++)
