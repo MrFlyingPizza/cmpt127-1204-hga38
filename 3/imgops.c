@@ -433,7 +433,7 @@ uint8_t *region_copy(const uint8_t array[],
     unsigned int right_limit, bottom_limit;
     uint8_t *copy = malloc((right - left) * (bottom - top));
 
-    if (bottom > rows || right > cols || copy == NULL)
+    if (bottom - top == 0 || right - left == 0 || copy == NULL)
     {
         return NULL;
     }
