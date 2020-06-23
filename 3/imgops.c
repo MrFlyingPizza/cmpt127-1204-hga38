@@ -433,16 +433,18 @@ uint8_t *region_copy(const uint8_t array[],
     unsigned int right_limit, bottom_limit;
     right_limit = (right < cols) ? right : cols;
     bottom_limit = (bottom < rows) ? bottom : rows;
+    uint8_t *copy = malloc((right - left) * (bottom - top));
 
-    unsigned int sum = 0;
+    uint8_t color = 0;
 
     for (size_t y = top; y < bottom_limit; y++)
     {
         for (size_t x = left; x < right_limit; x++)
         {
-            sum += get_pixel(array, cols, rows, x, y);
+            color = get_pixel(array, cols, rows, x, y);
+            set_pixel(copy, right - left, bottom - top, x - left, y - top, color);
         }
         
     }
-    return sum;
+    return copy;
 }
