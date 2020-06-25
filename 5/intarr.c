@@ -262,16 +262,22 @@ intarr_result_t intarr_resize( intarr_t* ia, unsigned int newlen )
         return INTARR_BADARRAY;
     }
 
-    int *new_alloc = realloc((*ia).data, newlen * sizeof(int));
-    if (new_alloc == NULL)
+    if (newlen == 0)
     {
-        return INTARR_BADALLOC;
+        free(ia);
+        ia = intarr_create(0);
     }
     else
     {
+        int *new_alloc = realloc((*ia).data, newlen * sizeof(int));
+        if (new_alloc == NULL)
+        {
+            return INTARR_BADALLOC;
+        }
         (*ia).len = newlen;
         (*ia).data = new_alloc;
     }
+
     return INTARR_OK;
 }
 /* LAB 5 TASK 8 */
