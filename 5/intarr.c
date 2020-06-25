@@ -37,14 +37,13 @@ typedef enum {
 // newly-allocated intarr_t.  If unsuccessful, returns a null pointer.
 intarr_t* intarr_create( unsigned int len )
 {
-    intarr_t new_intarr;
-    intarr_t* intarr_ptr = malloc(sizeof(new_intarr));
-    if (intarr_ptr == NULL)
-    {
+    intarr_t *new_intarr = malloc(sizeof(intarr_t));
+    if (&new_intarr == NULL)
         return NULL;
-    }
-    
-    return intarr_ptr;
+        
+    (*new_intarr).len = len;
+    (*new_intarr).data = malloc(10 * sizeof(int));
+    return new_intarr;
 }
 
 // Frees all memory allocated for ia. If the pointer is null, do
