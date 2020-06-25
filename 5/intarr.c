@@ -230,7 +230,7 @@ intarr_result_t intarr_resize( intarr_t* ia, unsigned int newlen )
         return INTARR_BADARRAY;
     }
 
-    int *new_alloc = realloc((*ia).data, newlen * sizeof((*ia).data[0]));
+    int *new_alloc = realloc((*ia).data, newlen * sizeof(int));
     if (new_alloc == NULL)
     {
         return INTARR_BADALLOC;
