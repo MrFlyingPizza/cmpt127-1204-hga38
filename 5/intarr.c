@@ -69,15 +69,31 @@ void intarr_destroy( intarr_t* ia )
 // INTARR_BADINDEX. If ia is null, return INTARR_BADARRAY.
 intarr_result_t intarr_set( intarr_t* ia, 
 							unsigned int index, 
-							int val );
+							int val )
+{
+    if (ia == NULL)
+    {
+        return INTARR_BADARRAY;
+    }
+    
+    if (index >= (*ia).len)
+    {
+        return INTARR_BADINDEX;
+    }
+    
+    (*ia).data[index] = val;
+    return INTARR_OK;
+}
 
 // If index is valid and val is non-null, set *val to ia->data[index] and return
 // INTARR_OK. Otherwise do not modify *val and return
 // INTARR_BADINDEX. If ia is null, return INTARR_BADARRAY.
 intarr_result_t intarr_get( const intarr_t* ia, 
 							unsigned int index, 
-							int* val );
-
+							int* val )
+{
+    return INTARR_OK;
+}
 /* LAB 5 TASK 3 */
 
 // Return a duplicate of ia, allocating new storage for the duplicate
