@@ -13,7 +13,8 @@
    FOR TASKS WITH MORE THAN ONE FUNCTION, YOU MUST IMPLEMENT ALL
    FUNCTIONS TO PASS THE TASK.
 */
-
+#include <stdio.h>
+#include <stdlib.h>
 /* Structure type that encapsulates our safe int array. */
 typedef struct {
   int* data;
@@ -34,11 +35,32 @@ typedef enum {
 // Create a new intarr_t with initial size len.  If successful
 // (i.e. memory allocation succeeds), returns a pointer to a
 // newly-allocated intarr_t.  If unsuccessful, returns a null pointer.
-intarr_t* intarr_create( unsigned int len );
+intarr_t* intarr_create( unsigned int len )
+{
+    intarr_t new_intarr;
+    intarr_t* intarr_ptr = malloc(sizeof(new_intarr));
+    if (intarr_ptr == NULL)
+    {
+        return NULL;
+    }
+    
+    return intarr_ptr;
+}
 
 // Frees all memory allocated for ia. If the pointer is null, do
 // nothing. If the ia->data is null, do not attempt to free it.
-void intarr_destroy( intarr_t* ia );
+void intarr_destroy( intarr_t* ia )
+{
+    if (ia != NULL)
+    {
+        if ((*ia).data != NULL)
+        {
+            free(ia);
+        }
+        
+    }
+    
+}
 
 /* LAB 5 TASK 2 */
 
