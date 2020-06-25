@@ -264,7 +264,7 @@ intarr_result_t intarr_resize( intarr_t* ia, unsigned int newlen )
 
     if (newlen == 0)
     {
-        free(ia);
+        intarr_destroy(ia);
         ia = intarr_create(0);
     }
     else
@@ -301,14 +301,13 @@ intarr_t* intarr_copy_subarray( intarr_t* ia,
         return NULL;
     }
 
-    int* new_array = malloc((last - first + 1) * sizeof(int));
+    intarr_t *new_intarr = intarr_create(last - first + 1);
     for (unsigned int i = first; i < last + 1; i++)
     {
-        new_array[i] = (*ia).data[i];
+        new_intarr->data[i] = (*ia).data[i];
     }
 
-    intarr_t *new_intarr = intarr_create(last - first + 1);
-    (*new_intarr).data = new_array;
+    
     
     return new_intarr;
 }
