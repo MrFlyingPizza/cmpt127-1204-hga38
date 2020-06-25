@@ -132,7 +132,18 @@ intarr_t* intarr_copy( const intarr_t* ia )
 // Sort ia by value smallest-to-largest, so that data[i] < data[i+1]
 // for all valid i, then return INTARR_OK. Works in-place: contents of
 // ia are sorted on return. If ia is null, return INTARR_BADARRAY.
-intarr_result_t intarr_sort( intarr_t* ia );
+int compare_ints(const int *p, const int *q);
+intarr_result_t intarr_sort( intarr_t* ia )
+{
+    if (ia == NULL)
+    {
+        return INTARR_BADARRAY;
+    }
+    
+    qsort((*ia).data, (*ia).len, sizeof((*ia).data[0]), compare_ints);
+    
+    return INTARR_OK;
+}
 
 /* LAB 5 TASK 5 */
 
