@@ -134,7 +134,17 @@ intarr_t* intarr_copy( const intarr_t* ia )
 // ia are sorted on return. If ia is null, return INTARR_BADARRAY.
 int compare_ints(const void *p, const void *q)
 {
-    return (q > p);
+    int f = *((int*) p);
+    int b = *((int*) q);
+    if (f > b)
+    {
+        return 1;
+    }
+    if (b > f)
+    {
+        return -1;
+    }
+    return 0;
 }
 
 intarr_result_t intarr_sort( intarr_t* ia )
