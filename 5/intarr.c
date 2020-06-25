@@ -207,8 +207,24 @@ intarr_result_t intarr_pop( intarr_t* ia, int* i );
 // (see https://en.cppreference.com/w/c/memory/realloc). 
 // If the allocation is successful, return INTARR_OK, otherwise 
 // return INTARR_BADALLOC. If ia is null, return INTARR_BADARRAY.
-intarr_result_t intarr_resize( intarr_t* ia, unsigned int newlen );
+intarr_result_t intarr_resize( intarr_t* ia, unsigned int newlen )
+{
+    if (ia == NULL)
+    {
+        return INTARR_BADARRAY;
+    }
 
+    int *new_alloc = realloc((*ia).data, newlen * sizeof((*ia).data[0]));
+    if (new_alloc == NULL)
+    {
+        return INTARR_BADALLOC;
+    }
+    else
+    {
+        (*ia).data = new_alloc;
+    }
+    return INTARR_OK;
+}
 /* LAB 5 TASK 8 */
 
 // Get a deep copy of a portion of ia from index 'first' to index 'last'
