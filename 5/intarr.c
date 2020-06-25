@@ -197,6 +197,7 @@ intarr_result_t intarr_find( intarr_t* ia, int target, int* i )
 // Append val to the end of ia (allocating space for it). If
 // successful, return INTARR_OK, otherwise return
 // INTARR_BADALLOC. If ia is null, return INTARR_BADARRAY.
+intarr_result_t intarr_resize( intarr_t* ia, unsigned int newlen );
 intarr_result_t intarr_push( intarr_t* ia, int val )
 {
     if (ia == NULL)
@@ -224,6 +225,23 @@ intarr_result_t intarr_push( intarr_t* ia, int val )
 // and return INTARR_BADINDEX. If ia is null, return INTARR_BADARRAY.
 intarr_result_t intarr_pop( intarr_t* ia, int* i )
 {
+    if (ia == NULL)
+    {
+        return INTARR_BADARRAY;
+    }
+
+    if ((*ia).len == 0)
+    {
+        return INTARR_BADINDEX;
+    }
+    unsigned int len = (*ia).len;
+
+    if (i != NULL)
+    {
+        *i = (*ia).data[len-1];
+    }
+    
+    intarr_resize(ia, len-1);
     return INTARR_OK;
 }
 
@@ -282,6 +300,9 @@ intarr_t* intarr_copy_subarray( intarr_t* ia,
     {
         new_array[i] = (*ia).data[i];
     }
+
+    intarr_t *new_intarr = intarr_create(last - first + 1);
+    (*new_intarr).data = new_array;
     
-    return new_array;
+    return new_intarr;
 }
