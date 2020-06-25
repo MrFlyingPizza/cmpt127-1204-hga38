@@ -40,7 +40,7 @@ intarr_t* intarr_create( unsigned int len )
     intarr_t *new_intarr = malloc(sizeof(intarr_t));
     if (&new_intarr == NULL)
         return NULL;
-        
+
     (*new_intarr).len = len;
     (*new_intarr).data = malloc(10 * sizeof(int));
     return new_intarr;
@@ -52,13 +52,14 @@ void intarr_destroy( intarr_t* ia )
 {
     if (ia != NULL)
     {
+        // free data if exist
         if ((*ia).data != NULL)
         {
-            free(ia);
+            free((*ia).data);
         }
-        
+
     }
-    
+
 }
 
 /* LAB 5 TASK 2 */
