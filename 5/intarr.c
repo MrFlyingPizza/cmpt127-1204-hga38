@@ -102,8 +102,8 @@ intarr_result_t intarr_get( const intarr_t* ia,
         return INTARR_BADINDEX;
     }
     
-    val = (*ia).data[index];
-    
+    *val = (*ia).data[index];
+
     return INTARR_OK;
 }
 /* LAB 5 TASK 3 */
@@ -111,8 +111,12 @@ intarr_result_t intarr_get( const intarr_t* ia,
 // Return a duplicate of ia, allocating new storage for the duplicate
 // data (we call this a "deep copy"). If unsuccessful (i.e. memory
 // allocation for the copy fails, or ia is null), return a null pointer. 
-intarr_t* intarr_copy( const intarr_t* ia );
-
+intarr_t* intarr_copy( const intarr_t* ia )
+{
+    intarr_t *new_intarr = malloc(sizeof(intarr_t));
+    (*new_intarr).len = (*ia).len;
+    return new_intarr;
+}
 /* LAB 5 TASK 4 */
 
 // Sort ia by value smallest-to-largest, so that data[i] < data[i+1]
