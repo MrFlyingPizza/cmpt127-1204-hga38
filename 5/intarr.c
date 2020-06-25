@@ -156,7 +156,29 @@ intarr_result_t intarr_sort( intarr_t* ia )
 // location index and return INTARR_OK. If target does not occur in
 // the array, leave *i unmodified and return INTARR_NOTFOUND. If ia is
 // null, return INTARR_BADARRAY.
-intarr_result_t intarr_find( intarr_t* ia, int target, int* i );
+intarr_result_t intarr_find( intarr_t* ia, int target, int* i )
+{
+    if (ia == NULL)
+    {
+        return INTARR_BADARRAY;
+    }
+
+    for (size_t index = 0; index < (*ia).len; index++)
+    {
+        if ((*ia).data[index] == target)
+        {
+            if (i != NULL)
+            {
+                *i = index;
+            }
+            
+            return INTARR_OK;
+        }
+        
+    }
+    
+    return INTARR_NOTFOUND;
+}
 
 /* LAB 5 TASK 6 */
 
