@@ -187,7 +187,10 @@ intarr_result_t intarr_find( intarr_t* ia, int target, int* i )
 // Append val to the end of ia (allocating space for it). If
 // successful, return INTARR_OK, otherwise return
 // INTARR_BADALLOC. If ia is null, return INTARR_BADARRAY.
-intarr_result_t intarr_push( intarr_t* ia, int val );
+intarr_result_t intarr_push( intarr_t* ia, int val )
+{
+    return INTARR_OK;
+}
 
 // HINT: You will need to decrement len so that it always represents
 //       the number of int's stored in the array data.
@@ -195,7 +198,10 @@ intarr_result_t intarr_push( intarr_t* ia, int val );
 // from the array, and, if i is non-null, set *i to the removed value,
 // then return INTARR_OK. If the array is empty, leave *i unmodified
 // and return INTARR_BADINDEX. If ia is null, return INTARR_BADARRAY.
-intarr_result_t intarr_pop( intarr_t* ia, int* i );
+intarr_result_t intarr_pop( intarr_t* ia, int* i )
+{
+    return INTARR_OK;
+}
 
 /* LAB 5 TASK 7 */
 
@@ -234,4 +240,7 @@ intarr_result_t intarr_resize( intarr_t* ia, unsigned int newlen )
 // 'last' < 'first', or memory allocation fails, return a null pointer.
 intarr_t* intarr_copy_subarray( intarr_t* ia, 
 								unsigned int first, 
-								unsigned int last );
+								unsigned int last )
+{
+
+}
