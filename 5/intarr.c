@@ -42,7 +42,7 @@ intarr_t* intarr_create( unsigned int len )
         return NULL;
 
     (*new_intarr).len = len;
-    (*new_intarr).data = malloc(10 * sizeof(int));
+    (*new_intarr).data = malloc(len * sizeof(int));
     return new_intarr;
 }
 
