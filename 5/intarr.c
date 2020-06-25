@@ -199,6 +199,20 @@ intarr_result_t intarr_find( intarr_t* ia, int target, int* i )
 // INTARR_BADALLOC. If ia is null, return INTARR_BADARRAY.
 intarr_result_t intarr_push( intarr_t* ia, int val )
 {
+    if (ia == NULL)
+    {
+        return INTARR_BADARRAY;
+    }
+    
+    unsigned int newlen = (*ia).len + 1;
+    intarr_result_t res = intarr_resize(ia, newlen);
+    if (res == INTARR_BADALLOC)
+    {
+        return INTARR_BADALLOC;
+    }
+
+    (*ia).data[newlen-1] = val;
+    
     return INTARR_OK;
 }
 
