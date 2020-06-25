@@ -304,10 +304,8 @@ intarr_t* intarr_copy_subarray( intarr_t* ia,
     intarr_t *new_intarr = intarr_create(last - first + 1);
     for (unsigned int i = first; i < last + 1; i++)
     {
-        new_intarr->data[i] = (*ia).data[i];
+        new_intarr->data[i-first] = (*ia).data[i];
     }
-
-    
     
     return new_intarr;
 }
