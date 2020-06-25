@@ -55,7 +55,7 @@ void intarr_destroy( intarr_t* ia )
         // free data if exist
         if ((*ia).data != NULL)
         {
-            free((*ia).data);
+            free(ia);
         }
 
     }
@@ -242,5 +242,14 @@ intarr_t* intarr_copy_subarray( intarr_t* ia,
 								unsigned int first, 
 								unsigned int last )
 {
+    if (ia == NULL)
+    {
+        return NULL;
+    }
 
+    if (last >= (*ia).len)
+    {
+        return NULL;
+    }
+    return NULL;
 }
