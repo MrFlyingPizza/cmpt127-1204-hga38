@@ -92,6 +92,18 @@ intarr_result_t intarr_get( const intarr_t* ia,
 							unsigned int index, 
 							int* val )
 {
+    if (ia == NULL)
+    {
+        return INTARR_BADARRAY;
+    }
+
+    if (index >= ((*ia).len))
+    {
+        return INTARR_BADINDEX;
+    }
+    
+    val = (*ia).data[index];
+    
     return INTARR_OK;
 }
 /* LAB 5 TASK 3 */
