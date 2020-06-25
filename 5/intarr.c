@@ -113,8 +113,18 @@ intarr_result_t intarr_get( const intarr_t* ia,
 // allocation for the copy fails, or ia is null), return a null pointer. 
 intarr_t* intarr_copy( const intarr_t* ia )
 {
-    intarr_t *new_intarr = malloc(sizeof(intarr_t));
-    (*new_intarr).len = (*ia).len;
+
+    intarr_t *new_intarr = intarr_create((*ia).len);
+    if (new_intarr == NULL)
+    {
+        return NULL;
+    }
+    
+    for (size_t i = 0; i < (*new_intarr).len; i++)
+    {
+        (*new_intarr).data[i] = (*ia).data[i];
+    }
+    
     return new_intarr;
 }
 /* LAB 5 TASK 4 */
