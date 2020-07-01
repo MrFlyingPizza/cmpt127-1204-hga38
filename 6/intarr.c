@@ -335,16 +335,19 @@ int intarr_save_binary( intarr_t* ia, const char* filename )
         return 2;
     }
 
-
-    
-    if (fwrite(&ia->len, sizeof(unsigned int), 1, f) != 1)
+    if (ia == NULL)
     {
         return 3;
     }
     
-    if (fwrite(ia->data, sizeof(int), ia->len, f) != ia->len)
+    if (fwrite(&ia->len, sizeof(unsigned int), 1, f) != 1)
     {
         return 4;
+    }
+    
+    if (fwrite(ia->data, sizeof(int), ia->len, f) != ia->len)
+    {
+        return 5;
     }
 
     fclose(f);
@@ -435,7 +438,32 @@ int intarr_save_json( intarr_t* ia, const char* filename )
         return 1;
     }
 
+    FILE *f = fopen(filename, "w");
+    if (f == NULL)
+    {
+        return 2;
+    }
 
+    if (ia == NULL)
+    {
+        return 3;
+    }
+
+    fprintf(f, "[\n");
+    fprintf(f, "%u,\n", ia->len);
+    for (unsigned int i = 0; i < ia->len; i++)
+    {
+        fprintf(f, "%d", ia->data[i]);
+        if (i != ia->len - 1)
+        {
+            fprintf(f, ",\n");
+        }
+        
+    }
+    fprintf(f, "]\n");
+
+    fclose(f);
+    return 0;
 }
 
 
@@ -449,5 +477,43 @@ int intarr_save_json( intarr_t* ia, const char* filename )
 */
 intarr_t* intarr_load_json( const char* filename )
 {
-    return 0;
+    if (filename == NULL)
+    {
+        printf("ERROR: null filename.\n");
+        return NULL;
+    }
+    
+    FILE* f = fopen(filename, "r");
+
+    if (f == NULL)
+    {
+        printf("ERROR: failed open file.\n");
+        return NULL;
+    }
+    
+    unsigned int len = 0;
+    if (fscanf(f, "[\n%u,", &len) != 1)
+    {
+        printf("ERROR: failed read length.\n");
+        return NULL;
+    }
+
+    intarr_t *intar = intarr_create(len);
+    if (intar == NULL)
+    {
+        printf("ERROR: failed intarr_create.\n");
+        return NULL;
+    }
+    
+    for (unsigned int i = 0; i < intar->len; i++)
+    {
+        if (fscanf(f, "%d,\n", &(intar->data[i])) != 1)
+        {
+            printf("ERROR: failed read data, i: %u.\n", intar->len);
+            return NULL;
+        }
+        
+    }
+    
+    return intar;
 }
