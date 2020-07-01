@@ -57,7 +57,7 @@ int main( int argc, char* argv[] )
   }
   
   // todo: this is a good place to use some image-modifying functions from imgops.c
-  
+  zero(img, imgwidth, imgheight);
   // draw the array as a grey-scale image in the window
   // This function returns after a user clicks or presses a button in the window
   draw_image_grey( img, imgwidth, imgheight );
