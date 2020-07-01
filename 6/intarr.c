@@ -326,13 +326,13 @@ int intarr_save_binary( intarr_t* ia, const char* filename )
 {
     if (filename == NULL)
     {
-        return 2;
+        return 1;
     }
 
     FILE *f = fopen(filename, "w");
     if (f == NULL)
     {
-        return 1;
+        return 2;
     }
 
 
