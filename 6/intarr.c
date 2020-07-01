@@ -324,16 +324,18 @@ intarr_t* intarr_copy_subarray( intarr_t* ia,
 */
 int intarr_save_binary( intarr_t* ia, const char* filename )
 {
+    if (filename == NULL)
+    {
+        return 2;
+    }
+
     FILE *f = fopen(filename, "w");
     if (f == NULL)
     {
         return 1;
     }
 
-    if (filename == NULL)
-    {
-        return 2;
-    }
+
     
     if (fwrite(&ia->len, sizeof(unsigned int), 1, f) != 1)
     {
@@ -428,7 +430,12 @@ intarr_t* intarr_load_binary( const char* filename )
 */
 int intarr_save_json( intarr_t* ia, const char* filename )
 {
-    return 0;
+    if (filename == NULL)
+    {
+        return 1;
+    }
+
+
 }
 
 
