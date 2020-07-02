@@ -47,14 +47,20 @@ int intarr_save_json( intarr_t* ia, const char* filename )
     }
 
     fprintf(f, "[\n");
-    for (unsigned int i = 0; i < ia->len - 1; i++)
-    {
-        fprintf(f, "%d,\n", ia->data[i]);
-    }
-
     if (ia->len > 0)
-        fprintf(f, "%d\n]\n", ia->data[ia->len - 1]);
+    {
+        for (unsigned int i = 0; i < ia->len - 1; i++)
+        {
+            fprintf(f, "%d,\n", ia->data[i]);
 
+        }
+        fprintf(f, "%d\n]\n", ia->data[ia->len - 1]);
+    }
+    else
+    {
+        fprintf(f, "]\n");
+    }
+    
     fclose(f);
     return 0;
 }
@@ -93,11 +99,9 @@ intarr_t* intarr_load_json( const char* filename )
         return NULL;
     }
 
-    printf("test\n");
     fscanf(f, "[\n");
     while (fscanf(f, "%d,\n", &temp) == 1)
     {
-        printf("inside val: %d\n", temp);
         ++count;
         if (intarr_resize(intar, count) != INTARR_OK)
         {

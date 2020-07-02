@@ -24,6 +24,8 @@ void read_intar(intarr_t* intar)
 
 int t1()
 {
+    printf("^^ TESTING t1\n");
+
     intarr_t *intar = generate_intarr(10);
 
     char* filename = "test_save";
@@ -40,7 +42,9 @@ int t1()
 
 int t2()
 {
-    intarr_t *intar = generate_intarr(6997);
+    printf("^^ TESTING t2\n");
+
+    intarr_t *intar = generate_intarr(20);
 
     char* filename = "test_save_json.json";
 
