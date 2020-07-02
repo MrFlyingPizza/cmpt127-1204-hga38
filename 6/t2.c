@@ -111,5 +111,6 @@ intarr_t* intarr_load_json( const char* filename )
         intar->data[count-1] = temp;
     }
     
+    fclose(f);
     return intar;
 }
