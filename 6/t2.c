@@ -47,20 +47,13 @@ int intarr_save_json( intarr_t* ia, const char* filename )
     }
 
     fprintf(f, "[\n");
-    fprintf(f, "%u,\n", ia->len);
-    for (unsigned int i = 0; i < ia->len; i++)
+    for (unsigned int i = 0; i < ia->len - 1; i++)
     {
-        fprintf(f, "%d", ia->data[i]);
-        if (i != ia->len - 1)
-        {
-            fprintf(f, ",\n");
-        }
-        else
-        {
-            fprintf(f, "\n]");
-        }
-        
+        fprintf(f, "%d,\n", ia->data[i]);
     }
+
+    if (ia->len > 0)
+        fprintf(f, "%d\n]\n", ia->data[ia->len - 1]);
 
     fclose(f);
     return 0;
@@ -91,28 +84,27 @@ intarr_t* intarr_load_json( const char* filename )
         return NULL;
     }
     
-    unsigned int len = 0;
-    if (fscanf(f, "[\n%u,", &len) != 1)
+    int temp = 0;
+    unsigned int count = 0;
+    intarr_t *intar = intarr_create(0);
+    if (intar == NULL)
     {
-        printf("ERROR: failed read length.\n");
+        printf("ERROR: failed intarr_create");
         return NULL;
     }
 
-    intarr_t *intar = intarr_create(len);
-    if (intar == NULL)
+    printf("test\n");
+    fscanf(f, "[\n");
+    while (fscanf(f, "%d,\n", &temp) == 1)
     {
-        printf("ERROR: failed intarr_create.\n");
-        return NULL;
-    }
-    
-    for (unsigned int i = 0; i < intar->len; i++)
-    {
-        if (fscanf(f, "%d,\n", &(intar->data[i])) != 1)
+        printf("inside val: %d\n", temp);
+        ++count;
+        if (intarr_resize(intar, count) != INTARR_OK)
         {
-            printf("ERROR: failed read data, i: %u.\n", intar->len);
+            printf("ERROR: intarr_resize non-zero.\n");
             return NULL;
         }
-        
+        intar->data[count-1] = temp;
     }
     
     return intar;
