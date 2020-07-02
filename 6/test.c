@@ -7,7 +7,7 @@ intarr_t * generate_intarr(unsigned int len)
 
     for (unsigned int i = 0; i < intar->len; i++)
     {
-        intar->data[i] = i*i;
+        intar->data[i] = i*2;
         printf("data set in intar at %u : %d\n", i, intar->data[i]);
     }
     return intar;
@@ -40,7 +40,7 @@ int t1()
 
 int t2()
 {
-    intarr_t *intar = generate_intarr(10);
+    intarr_t *intar = generate_intarr(6997);
 
     char* filename = "test_save_json.json";
 
@@ -50,6 +50,9 @@ int t2()
     printf("%p\n", read);
     read_intar(read);
 
+    printf("testing local gen\n");
+    intarr_t *local = intarr_load_json("local.json");
+    read_intar(local);
     return 0;
 }
 

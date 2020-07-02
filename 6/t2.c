@@ -55,9 +55,12 @@ int intarr_save_json( intarr_t* ia, const char* filename )
         {
             fprintf(f, ",\n");
         }
+        else
+        {
+            fprintf(f, "\n]");
+        }
         
     }
-    fprintf(f, "]\n");
 
     fclose(f);
     return 0;
