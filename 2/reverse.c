@@ -3,16 +3,15 @@
 //#include <stdio.h>
 
 void reverse( int arr[], unsigned int len ) {
-  int reverse_array[len];
-  unsigned int reverse_i;
-  for (unsigned int i = 0; i < len; i++) {
-    reverse_i = len - i - 1;
-    //printf("%d %d\n", i, reverse_i);
-    reverse_array[reverse_i] = arr[i];
+  int temp = 0;
+  int middle = len/2;
+  for (unsigned int i = 0; i < middle; i++)
+  {
+    temp = arr[i];
+    arr[i] = arr[len-1-i];
+    arr[len-1-i] = temp;
   }
-  for (unsigned int i = 0; i < len; i++) {
-    arr[i] = reverse_array[i];
-  }
+  
 }
 
 /*
