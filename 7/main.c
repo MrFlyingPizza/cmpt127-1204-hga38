@@ -92,14 +92,62 @@ int main( int argc, char* argv[] )
   }
   
   printf("testing list appended, head next val check\n");
-  append_success = list_append(test_list, 30);
-  if (test_list->head->next->val != 30)
+  append_success = list_append(test_list, INT_MIN);
+  if (test_list->head->next->val != INT_MIN)
   {
     return 1;
   }
   
   printf("testing list appended, tail val check\n");
-  if (test_list->tail->val != 30)
+  if (test_list->tail->val != INT_MIN)
+  {
+    return 1;
+  }
+  
+  printf("testing list append, tail next null check\n");
+  if (test_list->tail->next != NULL)
+  {
+    return 1;
+  }
+  
+  int some_val = rand();
+  list_prepend(test_list, some_val);
+  printf("testing list prepend, head val\n");
+  if (test_list->head->val != some_val)
+  {
+    return 1;
+  }
+  
+  printf("testing list prepend, head next");
+  if (test_list->head->next->val != INT_MAX)
+  {
+    return 1;
+  }
+  
+  printf("testing list prepend, tail val\n");
+  if (test_list->tail->val != INT_MIN)
+  {
+    return 1;
+  }
+
+  printf("testing list prepend, another value head\n");
+  some_val = rand();
+  list_prepend(test_list, some_val);
+  if (test_list->head->val != some_val)
+  {
+    return 1;
+  }
+
+  printf("testing list prepend, another value tail\n");
+  if (test_list->tail->val != INT_MIN)
+  {
+    return 1;
+  }
+
+  printf("testing list prepend, another value tail next\n");
+  if (test_list->head->next == NULL || test_list->head->next->next == NULL ||
+      test_list->head->next->next->next == NULL ||
+      test_list->head->next->next->next->next != NULL)
   {
     return 1;
   }
