@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "list.h"
+#include "limits.h"
 
 int main( int argc, char* argv[] )
 {
@@ -33,20 +34,76 @@ int main( int argc, char* argv[] )
   // you code goes here
 
   // destroy test
-  const unsigned int len = 200;
-  int test_arr[len];
-  for (unsigned int i = 0; i < len; i++)
-  {
-    test_arr[i] = rand();
-  }
-  printf("ga\n");
+  printf("testing destroy, ptr check\n");
   list_destroy(list);
   element_t *test_ptr = list_index(list, 0);
-  printf("%p", test_ptr);
+  printf("%p\n", test_ptr);
   if (test_ptr != NULL)
   {
     return 1;
   }
+
+  printf("tesing create element, null return check\n");
+  element_t* test_element = element_create(INT_MAX);
+  if (test_element == NULL) {
+    return 1;
+  }
+
+  printf("testing create element, int max store check.\n");
+  if (test_element->val != INT_MAX)
+  {
+    return 1;
+  }
+  
+  printf("testing create element, null next check\n");
+  if (test_element->next != NULL)
+  {
+    return 1;
+  }
+  free(test_element);
+
+  printf("Creating test list\n");
+  list_t *test_list = list_create();
+  
+  int append_success = list_append(test_list, INT_MAX);
+  printf("testing list appended, append success check\n");
+  if (append_success == 1)
+  {
+    printf("append failed, expected success!\n");
+    return 1;
+  }
+
+  printf("testing list appended, tail check\n");
+  if (test_list->tail->next != NULL) {
+    printf("failed to set");
+    return 1;
+  }
+
+  printf("testing list appended, head check\n");
+  if (test_list->head == NULL)
+  {
+    return 1;
+  }
+  
+  printf("testing  list appended, head val check\n");
+  if (test_list->head->val != INT_MAX)
+  {
+    return 1;
+  }
+  
+  printf("testing list appended, head next val check\n");
+  append_success = list_append(test_list, 30);
+  if (test_list->head->next->val != 30)
+  {
+    return 1;
+  }
+  
+  printf("testing list appended, tail val check\n");
+  if (test_list->tail->val != 30)
+  {
+    return 1;
+  }
+  
   
   
   return 0; // tests pass
