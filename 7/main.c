@@ -32,8 +32,8 @@ int main( int argc, char* argv[] )
   // they do what they are supposed to
 
   // you code goes here
+  int test_vals[4] = {0, 0, INT_MAX, INT_MIN};
 
-  // destroy test
   printf("testing destroy, ptr check\n");
   list_destroy(list);
   element_t *test_ptr = list_index(list, 0);
@@ -111,6 +111,7 @@ int main( int argc, char* argv[] )
   }
   
   int some_val = rand();
+  test_vals[1] = some_val;
   list_prepend(test_list, some_val);
   printf("testing list prepend, head val\n");
   if (test_list->head->val != some_val)
@@ -132,6 +133,7 @@ int main( int argc, char* argv[] )
 
   printf("testing list prepend, another value head\n");
   some_val = rand();
+  test_vals[0] = some_val;
   list_prepend(test_list, some_val);
   if (test_list->head->val != some_val)
   {
@@ -152,7 +154,43 @@ int main( int argc, char* argv[] )
     return 1;
   }
   
+  printf("testing list index, out of range\n");
+  if (list_index(test_list, INT_MAX) != NULL)
+  {
+    return 1;
+  }
   
+  printf("testing list index, vals\n");
+  for (unsigned int i = 0; i < 4; i++)
+  {
+    if (list_index(test_list, i)->val != test_vals[i])
+    {
+      return 1;
+    }
+    
+  }
+  
+  printf("testing list index, next pointers");
+  for (unsigned int i = 0; i < 4; i++)
+  {
+    if (i < 3)
+    {
+      if (list_index(test_list, i)->next == NULL)
+      {
+        return 1;
+      }
+      
+    }
+    else
+    {
+      if (list_index(test_list, i)->next != NULL)
+      {
+        return 1;
+      }
+      
+    }
+    
+  }
   
   return 0; // tests pass
 }
