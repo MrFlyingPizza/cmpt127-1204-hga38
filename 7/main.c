@@ -35,48 +35,49 @@ int test_element_create()
 int test_list_append()
 {
   list_t *list = list_create();
-
-  int len = 5;
-  int vals[len];
-  int temp = 0;
-  for (int i = 0; i < len; i++)
-  {
-    temp = rand();
-    vals[i] = temp;
-    list_append(list, temp);
-  }
-
-  // val loop check if vals match in list and array
-  element_t *temp_el = list->head;
-  for (int i = 0; i < len - 1; i++)
-  {
-    if (temp_el->next == NULL)
-    {
-      return 1;
-    }
-    
-    if (temp_el->val != vals[i])
-    {
-      return 1;
-    }
-    temp_el = temp_el->next;
-  }
-
-  if (temp_el != list->tail) // final index check
+  list_append(list, 299);
+  if (list->head == NULL || list->tail == NULL)
   {
     return 1;
   }
   
-  if (temp_el->next != NULL)
+  if (list->head->val != 299)
   {
     return 1;
   }
   
-  if (temp_el->val != vals[4])
+  if (list->head != list->tail)
   {
     return 1;
   }
   
+  list_append(list, 300);
+  if (list->tail->val != 300)
+  {
+    return 1;
+  }
+
+  if (list->head->next != list->tail)
+  {
+    return 1;
+  }
+  
+  list_append(list, 301);
+  if (list->tail->val != 301)
+  {
+    return 1;
+  }
+  
+  if (list->head->next->next != list->tail)
+  {
+    return 1;
+  }
+
+  if (list->tail->next != NULL)
+  {
+    return 1;
+  }
+
   return 0;
 }
 
