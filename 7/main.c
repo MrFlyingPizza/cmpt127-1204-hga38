@@ -127,6 +127,16 @@ int test_list_prepend()
   return 0;
 }
 
+int test_list_destroy()
+{
+  return 0;
+}
+
+int test_list_index()
+{
+  return 0;
+}
+
 int main( int argc, char* argv[] )
 {
   // test the create function
@@ -157,17 +167,26 @@ int main( int argc, char* argv[] )
   // you code goes here
 
   // test element create
+  puts("test element create\n");
   if (test_element_create() == 1)
     return 1;
 
+  puts("test list append\n");
   if (test_list_append() == 1)
     return 1;
 
+  puts("test list prepend");
   if (test_list_prepend() == 1)
     return 1;
-  
-  
 
+  puts("test list destroy");
+  if (test_list_destroy() == 1)
+    return 1;
+
+  puts("test list index");
+  if (test_list_index() == 1)
+    return 1;
+  
 
   return 0;
 }
