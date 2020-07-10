@@ -82,6 +82,48 @@ int test_list_append()
 
 int test_list_prepend()
 {
+  list_t *list = list_create();
+
+  int len = 5;
+  int vals[len];
+  int temp = 0;
+  for (int i = len - 1; i >= 0; i--)
+  {
+    temp = rand();
+    vals[i] = temp;
+    list_prepend(list, temp);
+  }
+
+  element_t *temp_el = list->head;
+  for (int i = 0; i < len - 1; i++)
+  {
+    if (temp_el->next == NULL)
+    {
+      return 1;
+    }
+    
+    if (temp_el->val != vals[i])
+    {
+      return 1;
+    }
+    temp_el = temp_el->next;
+  }
+
+  if (temp_el != list->tail) // final index check
+  {
+    return 1;
+  }
+  
+  if (temp_el->next != NULL)
+  {
+    return 1;
+  }
+  
+  if (temp_el->val != vals[4])
+  {
+    return 1;
+  }
+
   return 0;
 }
 
