@@ -130,6 +130,14 @@ int test_list_prepend()
 
 int test_list_destroy()
 {
+  list_t *list = list_create();
+  list_destroy(list);
+  list_t *list2 = list_create();
+  if (list != list2)
+  {
+    return 1;
+  }
+  
   return 0;
 }
 
@@ -145,6 +153,7 @@ int test_list_index()
   }
   
   list->head = el;
+  list->tail = el;
   printf("\ttesting index 0\n");
   if (list_index(list, 0) != el)
   {
