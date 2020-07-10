@@ -6,6 +6,84 @@
 #include <assert.h>
 #include <string.h>
 
+int test_element_create()
+{
+  int test_val = 1942;
+  element_t *test_element = malloc(sizeof(element_t));
+  assert(test_element);
+  memset(test_element, 0xFF, sizeof(element_t));
+  free(test_element);
+
+  test_element = element_create(test_val);
+  assert(test_element);
+
+  if (test_element->next)
+  {
+    puts("element_create(): test_element->next not NULL.");
+    return 1;
+  }
+
+  if (test_element->val != test_val)
+  {
+    puts("element_create(): test_element->val not correct.");
+    return 1;
+  }
+  
+  return 0;
+}
+
+int test_list_append()
+{
+  list_t *list = list_create();
+
+  int len = 5;
+  int vals[len];
+  int temp = 0;
+  for (int i = 0; i < len; i++)
+  {
+    temp = rand();
+    vals[i] = temp;
+    list_append(list, temp);
+  }
+
+  // val loop check if vals match in list and array
+  element_t *temp_el = list->head;
+  for (int i = 0; i < len - 1; i++)
+  {
+    if (temp_el->next == NULL)
+    {
+      return 1;
+    }
+    
+    if (temp_el->val != vals[i])
+    {
+      return 1;
+    }
+    temp_el = temp_el->next;
+  }
+
+  if (temp_el != list->tail) // final index check
+  {
+    return 1;
+  }
+  
+  if (temp_el->next != NULL)
+  {
+    return 1;
+  }
+  
+  if (temp_el->val != vals[4])
+  {
+    return 1;
+  }
+  
+  return 0;
+}
+
+int test_list_prepend()
+{
+  return 0;
+}
 
 int main( int argc, char* argv[] )
 {
@@ -35,68 +113,19 @@ int main( int argc, char* argv[] )
   // they do what they are supposed to
 
   // you code goes here
-  unsigned int len = 200;
-  int test_vals[len];
-  for (unsigned int i = 0; i < len; i++)
-  {
-    test_vals[i] = rand();
-  }
-  
-  // testing list append
-  list_t *test_list = list_create();
-  for (unsigned int i = 0; i < len; i++)
-  {
-    list_append(test_list, test_vals[i]);
-  }
-  
-  element_t *test_element_ptr = test_list->head;
-  for (unsigned int i = 0; i < len - 1; i++)
-  {
-    if (test_element_ptr == NULL)
-    {
-      return 1;
-    }
 
-    if (test_element_ptr->next == NULL)
-    {
-      return 1;
-    }
-    
-    if (test_element_ptr->val != test_vals[i])
-    {
-      return 1;
-    }
-    //printf("test_el: %d | test_vals: %d\n", test_element_ptr->val, test_vals[i]);
-    test_element_ptr = test_element_ptr->next;
-  }
-  
-  if (test_element_ptr->next != NULL)
-  {
+  // test element create
+  if (test_element_create() == 1)
     return 1;
-  }
+
+  if (test_list_append() == 1)
+    return 1;
+
+  if (test_list_prepend() == 1)
+    return 1;
+  
   
 
-  // testing element_create()
-  element_t *el = malloc(sizeof(element_t));
-  assert(el);
-
-  memset(el, 0xFF, sizeof(element_t));
-  free(el);
-
-  el = element_create(INT_MAX);
-  assert(el);
-
-  if (el->next)
-  {
-    puts("element_create(): el->next not NULL");
-    return 1;
-  }
-
-  if (el->val != INT_MAX)
-  {
-    puts("element_create(): el->value wrong");
-    return 1;
-  }
 
   return 0;
 }
