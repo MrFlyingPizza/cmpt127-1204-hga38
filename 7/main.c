@@ -134,11 +134,33 @@ int test_list_destroy()
 
 int test_list_index()
 {
+  list_t *list = list_create();
+
+  element_t *el = element_create(INT_MAX);
+  if (el == NULL)
+  {
+    printf("\tFailed el create\n");
+    return 1;
+  }
+  
+  list->head = el;
+  printf("\ttesting index 0\n");
+  if (list_index(list, 0) != el)
+  {
+    return 1;
+  }
+  printf("\ttesting index 1\n");
+  if (list_index(list, 1) != NULL)
+  {
+    return 1;
+  }
+  
   return 0;
 }
 
 int main( int argc, char* argv[] )
 {
+  puts("------ running test -----");
   // test the create function
   list_t* list = list_create();
 
