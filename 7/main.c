@@ -34,8 +34,15 @@ int test_element_create()
 
 int test_list_append()
 {
+  int success = 0;
+
   list_t *list = list_create();
-  list_append(list, 299);
+  success = list_append(list, 299);
+  if (success == 1)
+  {
+    return 1;
+  }
+  
   if (list->head == NULL || list->tail == NULL)
   {
     return 1;
@@ -51,7 +58,12 @@ int test_list_append()
     return 1;
   }
   
-  list_append(list, 300);
+  success = list_append(list, 300);
+  if (success == 1)
+  {
+    return 1;
+  }
+  
   if (list->tail->val != 300)
   {
     return 1;
@@ -62,7 +74,12 @@ int test_list_append()
     return 1;
   }
   
-  list_append(list, 301);
+  success = list_append(list, 301);
+  if (success == 1)
+  {
+    return 1;
+  }
+  
   if (list->tail->val != 301)
   {
     return 1;
