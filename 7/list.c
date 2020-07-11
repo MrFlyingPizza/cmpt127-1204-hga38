@@ -102,3 +102,18 @@ void list_print( list_t* list )
   printf( " }\n" );
 }
 
+int list_size(list_t* list)
+{
+    if (list == NULL) return -1;
+    if (list->head == NULL) return 0;
+    
+    int size = 1;
+    element_t *el = list->head;
+    while (el->next != NULL)
+    {
+        size += 1;
+        el = el->next;
+    }
+    
+    return size;
+}
