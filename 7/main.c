@@ -161,6 +161,11 @@ int test_list_destroy()
 int test_list_index()
 {
   list_t *list = list_create();
+  if (list_index(list, 10))
+  {
+    return 1;
+  }
+  
 
   element_t *el = element_create(INT_MAX);
   if (el == NULL)
