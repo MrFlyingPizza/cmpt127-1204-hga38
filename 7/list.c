@@ -1,3 +1,5 @@
+// t5.c
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -43,15 +45,14 @@ int list_append( list_t* list, int i )
   element_t* el = element_create( i );
   if( el == NULL )
     return 1;
-  
+
   if( list->head == NULL )
     list->head = el;
   
   if( list->tail )
     list->tail->next = el;
-  
+
   list->tail = el;
-  
   return 0;
 }
 
@@ -74,21 +75,20 @@ int list_prepend( list_t* list, int i )
 
 element_t* list_index( list_t* list, unsigned int i )
 {
+  if( list->head == NULL )
+    return NULL;
+  
   element_t* el = list->head;
   unsigned int now = 0;
   
   while( now < i )
     {
-      if( el->next == NULL )
-	return NULL;
-
       now++;
       el = el->next;
     }     
   
   return el;
 }
-
 
 void list_print( list_t* list )
 {
@@ -100,20 +100,4 @@ void list_print( list_t* list )
     printf( " %d", el->val );
 
   printf( " }\n" );
-}
-
-int list_size(list_t* list)
-{
-    if (list == NULL) return -1;
-    if (list->head == NULL) return 0;
-    
-    int size = 1;
-    element_t *el = list->head;
-    while (el->next != NULL)
-    {
-        size += 1;
-        el = el->next;
-    }
-    
-    return size;
 }
