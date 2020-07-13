@@ -60,30 +60,30 @@ void merge(list_t* list, int left, int right, int mid)
         rel_i++;
     }
 
+    unsigned int current_count, size;
+    element_t *el;
     if (count_l < size_l)
     {
-        for (unsigned int i = count_l; i < size_l; i++)
-        {
-            merge_arr[rel_i] = el_l->val;
-            el_l = el_l->next;
-            //if (el_l == NULL) puts("!! null reached el_l");
-            rel_i++;
-        }
-        
+        el = el_l;
+        current_count = count_l;
+        size = size_l;
     }
     else
     {
-        for (unsigned int i = count_r; i < size_r; i++)
-        {
-            merge_arr[rel_i] = el_r->val;
-            el_r = el_r->next;
-            //if (el_r == NULL) printf("!! null reached el_r i=%u\n", i);
-            rel_i++;
-        }
-        
+        el = el_r;
+        current_count = count_r;
+        size = size_r;
     }
     
-    element_t *el = head_l;
+    for (unsigned int i = current_count; i < size; i++)
+    {
+        merge_arr[rel_i] = el->val;
+        el = el->next;
+        rel_i++;
+    }
+    
+    
+    el = head_l;
     for (unsigned int i = 0; i < size_l + size_r; i++)
     {
         el->val = merge_arr[i];
