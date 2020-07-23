@@ -118,12 +118,23 @@ void list_sort(list_t* list)
 // int main()
 // {
 //     list_t *list = list_create();
-//     for (int i = 0; i < 100000; i++)
+//     int len = 10000;
+//     for (int i = 0; i < len; i++)
 //     {
 //         list_append(list, rand());
 //     }
 //     puts("testing...");
 //     list_sort(list);
 //     list_print(list);
+
+//     for (int i = 0; i < len - 1; i++)
+//     {
+//         if (list_index(list, i) > list_index(list, i + 1))
+//         {
+//             printf("Failed check at index: %d", i);
+//         }
+        
+//     }
+    
 //     return 0;
 // }
