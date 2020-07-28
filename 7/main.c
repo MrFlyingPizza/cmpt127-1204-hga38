@@ -170,13 +170,6 @@ int test_list_index()
   }
   puts("Passed index 1");
 
-
-  if (list_index(list, -32) != NULL)
-  {
-    puts("failed negative index check");
-    return 1;
-  }
-
   if (list_index(list, INT_MAX) != NULL)
   {
     puts("failed out of range index check");
