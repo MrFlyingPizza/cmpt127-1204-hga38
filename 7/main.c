@@ -35,53 +35,38 @@ int test_element_create()
 int test_list_append()
 {
   list_t *list = NULL;
-  if (list_append(list, 10) != 1)
+  if (list_append(list, 2) != 1)
   {
+    puts("failed null list test");
     return 1;
   }
 
-  list = list_create();
+  list = malloc(sizeof(list_t));
+  list->head = NULL;
+  list->tail = NULL;
 
-  int len = 5;
-  int vals[len];
-  int temp = 0;
-  for (int i = 0; i < len; i++)
+  puts("generating 100 random numbers");
+  int testarr[100] = {};
+  for (int i = 0; i < 100; i++)
   {
-    temp = rand();
-    vals[i] = temp;
-    list_append(list, temp);
+    testarr[i] = rand() % 2000;
+    list_append(list, testarr[i]);
   }
 
-  element_t *temp_el = list->head;
-  for (int i = 0; i < len - 1; i++)
+  int counter = 0;
+  element_t *el = list->head;
+  while (el != NULL)
   {
-    if (temp_el->next == NULL)
+    if (el->val != testarr[counter])
     {
-      
+      puts("Failed value filling test");
       return 1;
     }
-    
-    if (temp_el->val != vals[i])
-    {
-      return 1;
-    }
-    temp_el = temp_el->next;
+    el = el->next;
+    ++counter;
   }
+  
 
-  if (temp_el != list->tail) // final index check
-  {
-    return 1;
-  }
-  
-  if (temp_el->next != NULL)
-  {
-    return 1;
-  }
-  
-  if (temp_el->val != vals[4])
-  {
-    return 1;
-  }
   puts("passed append");
   return 0;
 }
@@ -173,14 +158,17 @@ int test_list_index()
   printf("\ttesting index 0\n");
   if (list_index(list, 0) != el)
   {
+    puts("failed index 0");
     return 1;
   }
+  puts("passed index 0");
   printf("\ttesting index 1\n");
   if (list_index(list, 1) != NULL)
   {
+    puts("failed index 1");
     return 1;
   }
-  puts("Passed index");
+  puts("Passed index 1");
   return 0;
 }
 
