@@ -34,7 +34,13 @@ int test_element_create()
 
 int test_list_append()
 {
-  list_t *list = list_create();
+  list_t *list = NULL;
+  if (list_append(list, 10) != 1)
+  {
+    return 1;
+  }
+
+  list = list_create();
 
   int len = 5;
   int vals[len];
