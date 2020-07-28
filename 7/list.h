@@ -57,3 +57,6 @@ void list_print( list_t* list );
 
 // gets the size of a list
 int list_size(list_t* list);
+
+//sort
+void list_sort( list_t* list);
