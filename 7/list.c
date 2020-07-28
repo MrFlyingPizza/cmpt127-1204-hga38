@@ -31,6 +31,7 @@ void list_destroy( list_t* list )
 		el = next;
 	}
 	
+	free(list);
 }
 
 element_t* element_create( int i )
@@ -98,8 +99,18 @@ int list_prepend( list_t* list, int i )
 	el->val = i;
 	el->next = NULL;
 
-	el->next = list->head->next;
-	list->head = el;
+	if (list->head == NULL)
+	{
+		list->head = el;
+		list->tail = el;
+	}
+	else
+	{
+		el->next = list->head;
+		list->head = el;
+	}
+	
+
 	return 0;
 }
 
@@ -117,8 +128,8 @@ element_t* list_index( list_t* list, unsigned int i )
 	
 	
 	unsigned int count = 0;
-	element_t* result = NULL, *el = list->head;
-	while (el != NULL && i < count)
+	element_t *el = list->head;
+	while (el != NULL && count < i)
 	{
 		if (count == i)
 		{
