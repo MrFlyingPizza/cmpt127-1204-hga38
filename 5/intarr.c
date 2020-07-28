@@ -38,11 +38,24 @@ typedef enum {
 intarr_t* intarr_create( unsigned int len )
 {
     intarr_t *new_intarr = malloc(sizeof(intarr_t));
-    if (new_intarr == NULL)
-        return NULL;
+    unsigned short intarr_create_success = 1;
+    if (new_intarr == NULL) // check intarr allocate success
+    {
+        intarr_create_success = 0;
+    }
+    else
+    {
+        new_intarr->len = len;
+        new_intarr->data = malloc(len * sizeof(int));
+    }
+    
+    
+    if (new_intarr->data == NULL && intarr_create_success == 1) // clear the intarr if failed to create data array
+    {
+        free(new_intarr);
+        new_intarr = NULL;
+    }
 
-    (*new_intarr).len = len;
-    (*new_intarr).data = malloc(len * sizeof(int));
     return new_intarr;
 }
 
@@ -53,8 +66,9 @@ void intarr_destroy( intarr_t* ia )
     if (ia != NULL)
     {
         // free data if exist
-        if ((*ia).data != NULL)
+        if (ia->data != NULL)
         {
+            free(ia->data);
             free(ia);
         }
 
@@ -76,12 +90,12 @@ intarr_result_t intarr_set( intarr_t* ia,
         return INTARR_BADARRAY;
     }
     
-    if (index >= (*ia).len)
+    if (index >= ia->len)
     {
         return INTARR_BADINDEX;
     }
     
-    (*ia).data[index] = val;
+    ia->data[index] = val;
     return INTARR_OK;
 }
 
