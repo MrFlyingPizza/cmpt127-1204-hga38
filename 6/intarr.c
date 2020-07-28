@@ -55,6 +55,7 @@ void intarr_destroy( intarr_t* ia )
         // free data if exist
         if ((*ia).data != NULL)
         {
+            free(ia->data);
             free(ia);
         }
 
