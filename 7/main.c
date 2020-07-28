@@ -140,11 +140,11 @@ int test_list_destroy()
 int test_list_index()
 {
   list_t *list = list_create();
-  if (list_index(list, 10))
+  if (list_index(list, 10) != NULL)
   {
+    puts("failed empty list index check");
     return 1;
   }
-  
 
   element_t *el = element_create(INT_MAX);
   if (el == NULL)
@@ -169,6 +169,21 @@ int test_list_index()
     return 1;
   }
   puts("Passed index 1");
+
+
+  if (list_index(list, -32) != NULL)
+  {
+    puts("failed negative index check");
+    return 1;
+  }
+
+  if (list_index(list, INT_MAX) != NULL)
+  {
+    puts("failed out of range index check");
+    return 1;
+  }
+
+  puts("passed list index");
   return 0;
 }
 
