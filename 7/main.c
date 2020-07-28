@@ -28,88 +28,22 @@ int test_element_create()
     puts("element_create(): test_element->val not correct.");
     return 1;
   }
-  
+  puts("passed create");
   return 0;
 }
 
 int test_list_append()
-{
-  int success = 0;
-
-  list_t *list = list_create();
-  success = list_append(list, 299);
-  if (success == 1)
-  {
-    return 1;
-  }
-  
-  if (list->head == NULL || list->tail == NULL)
-  {
-    return 1;
-  }
-  
-  if (list->head->val != 299)
-  {
-    return 1;
-  }
-  
-  if (list->head != list->tail)
-  {
-    return 1;
-  }
-  
-  success = list_append(list, 300);
-  if (success == 1)
-  {
-    return 1;
-  }
-  
-  if (list->tail->val != 300)
-  {
-    return 1;
-  }
-
-  if (list->head->next != list->tail)
-  {
-    return 1;
-  }
-  
-  success = list_append(list, 301);
-  if (success == 1)
-  {
-    return 1;
-  }
-  
-  if (list->tail->val != 301)
-  {
-    return 1;
-  }
-  
-  if (list->head->next->next != list->tail)
-  {
-    return 1;
-  }
-
-  if (list->tail->next != NULL)
-  {
-    return 1;
-  }
-
-  return 0;
-}
-
-int test_list_prepend()
 {
   list_t *list = list_create();
 
   int len = 5;
   int vals[len];
   int temp = 0;
-  for (int i = len - 1; i >= 0; i--)
+  for (int i = 0; i < len; i++)
   {
     temp = rand();
     vals[i] = temp;
-    list_prepend(list, temp);
+    list_append(list, temp);
   }
 
   element_t *temp_el = list->head;
@@ -117,6 +51,7 @@ int test_list_prepend()
   {
     if (temp_el->next == NULL)
     {
+      
       return 1;
     }
     
@@ -141,7 +76,59 @@ int test_list_prepend()
   {
     return 1;
   }
+  puts("passed append");
+  return 0;
+}
 
+int test_list_prepend()
+{
+  list_t *list = list_create();
+
+  int len = 5;
+  int vals[len];
+  int temp = 0;
+  for (int i = len - 1; i >= 0; i--)
+  {
+    temp = rand();
+    vals[i] = temp;
+    list_prepend(list, temp);
+  }
+
+  element_t *temp_el = list->head;
+  for (int i = 0; i < len - 1; i++)
+  {
+    if (temp_el->next == NULL)
+    {
+      puts("unexpected null from prepend");
+      return 1;
+    }
+    
+    if (temp_el->val != vals[i])
+    {
+      puts("unexpected value from prepend");
+      return 1;
+    }
+    temp_el = temp_el->next;
+  }
+
+  if (temp_el != list->tail) // final index check
+  {
+    puts("unexpected tail index from prepend");
+    return 1;
+  }
+  
+  if (temp_el->next != NULL)
+  {
+    puts("expected null at the end");
+    return 1;
+  }
+  
+  if (temp_el->val != vals[4])
+  {
+    puts("unexpected final val");
+    return 1;
+  }
+  puts("Passed prepend");
   return 0;
 }
 
@@ -155,6 +142,7 @@ int test_list_destroy()
     return 1;
   }
   
+  puts("Passed destroy");
   return 0;
 }
 
@@ -186,7 +174,7 @@ int test_list_index()
   {
     return 1;
   }
-  
+  puts("Passed index");
   return 0;
 }
 
