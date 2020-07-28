@@ -65,6 +65,15 @@ int test_list_append()
     el = el->next;
     ++counter;
   }
+
+  list_destroy(list);
+  list_t* list_2 = list_create();
+  list_append(list_2, 2);
+  if (list_2->head != list_2->tail)
+  {
+    puts("failed first append");
+    return 1;
+  }
   
 
   puts("passed append");
@@ -120,6 +129,14 @@ int test_list_prepend()
     return 1;
   }
   puts("Passed prepend");
+
+  list_t *list_2 = list_create();
+  if (list_2->head != list_2->tail)
+  {
+    puts("failed first append");
+    return 1;
+  }
+
   return 0;
 }
 
