@@ -59,7 +59,7 @@ int point_array_remove( point_array_t* pa, unsigned int i )
     {
         for (unsigned int index = i; index < pa->len-1; index++)
         {
-            pa->points[i] = pa->points[i+1];
+            pa->points[index] = pa->points[index+1];
         }
         pa->points = pts;
         pa->len -= 1;
