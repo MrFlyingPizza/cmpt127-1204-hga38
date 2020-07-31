@@ -30,7 +30,21 @@ int point_array_append( point_array_t* pa, point_t* p )
 {
     assert(pa);
     assert(p);
-    point_t* new_pts = realloc(pa->points, (pa->len + 1)*sizeof(point_t));
+    point_t* new_pts = NULL;
+    if (pa->points)
+    {
+        new_pts = realloc(pa->points, (pa->len + 1)*sizeof(point_t));
+    }
+    else if (pa->len == 0)
+    {
+        new_pts = malloc(sizeof(point_t));
+    }
+    else
+    {
+        return 1;
+    }
+    
+    
     if (new_pts)
     {
         pa->len += 1;
