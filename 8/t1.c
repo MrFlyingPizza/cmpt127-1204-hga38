@@ -29,6 +29,7 @@ void point_array_reset( point_array_t* pa )
 int point_array_append( point_array_t* pa, point_t* p )
 {
     assert(pa);
+    assert(p);
     point_t* new_pts = realloc(pa->points, (pa->len + 1)*sizeof(point_t));
     if (new_pts)
     {
