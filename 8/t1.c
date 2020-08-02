@@ -32,9 +32,9 @@ int point_array_append( point_array_t* pa, point_t* p )
         pts = realloc(pa->points, (pa->len+1) * sizeof(point_t));
         if (pts == NULL) return 1;
         pa->reserved += 1;
+        pa->points = pts;
     }
     
-    pa->points = pts;
     pa->points[pa->len] = *p;
     pa->len += 1;
 
