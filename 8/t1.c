@@ -1,19 +1,15 @@
 #include <stdlib.h>
 #include "point_array.h"
 #include <assert.h>
+#include <stdio.h>
 
 // Safely initalize an empty array structure.
 void point_array_init( point_array_t* pa )
 {
     assert(pa);
-    pa = malloc(sizeof(point_array_t));
-    if (pa)
-    {
-        pa->len = 0;
-        pa->reserved = 0;
-        pa->points = NULL;
-    }
-    
+    pa->len = 0;
+    pa->reserved = 0;
+    pa->points = NULL;
 }
 
 // Resets the array to be empty, freeing any memory allocated if necessary.
@@ -30,32 +26,18 @@ int point_array_append( point_array_t* pa, point_t* p )
 {
     assert(pa);
     assert(p);
-    point_t* new_pts = NULL;
-    if (pa->points)
+    point_t* pts = NULL;
+    if (pa->len == pa->reserved)
     {
-        new_pts = realloc(pa->points, (pa->len + 1)*sizeof(point_t));
-    }
-    else if (pa->len == 0)
-    {
-        new_pts = malloc(sizeof(point_t));
-    }
-    else
-    {
-        return 1;
-    }
-    
-    
-    if (new_pts)
-    {
-        pa->len += 1;
+        pts = realloc(pa->points, (pa->len+1) * sizeof(point_t));
+        if (pts == NULL) return 1;
         pa->reserved += 1;
-        pa->points[pa->len - 1] = *p;
-    }
-    else
-    {
-        return 1;
     }
     
+    pa->points = pts;
+    pa->points[pa->len] = *p;
+    pa->len += 1;
+
     return 0;
 }
 
@@ -64,27 +46,10 @@ int point_array_append( point_array_t* pa, point_t* p )
 // If successful, return 0, else return 1. 
 int point_array_remove( point_array_t* pa, unsigned int i )
 {
-    assert(pa);
-    if (i >= pa->len) return 1;
-    if (pa->len < 1) return 1;
-
-    point_t* pts = realloc(pa->points, pa->len-1 * sizeof(point_t));
-    if (pts)
-    {
-        for (unsigned int index = i; index < pa->len-1; index++)
-        {
-            pa->points[index] = pa->points[index+1];
-        }
-        pa->points = pts;
-        pa->len -= 1;
-        pa->reserved -= 1;
-    }
-    else
-    {
-        return 1;
-    }
-    
-    return 0;
+    point_t to_remove = pa->points[pa->len-1];
+    pa->points[pa->len-1] = pa->points[i];
+    pa->points[pa->len-1] = to_remove;
+    pa->len -= 1;
 }
 
 
