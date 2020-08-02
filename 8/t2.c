@@ -6,40 +6,18 @@
 void point_array_init( point_array_t* pa )
 {
     assert(pa);
-    point_array_t* new_pa = malloc(sizeof(point_array_t));
-    if (new_pa)
-    {
-        new_pa->points = malloc(10*sizeof(point_t));
-        if (new_pa->points)
-        {
-            new_pa->len = 0;
-            new_pa->reserved = 10;
-            pa = new_pa;
-        }
-        else
-        {
-            free(new_pa->points);
-            free(new_pa);
-        }
-
-    }
-
+    pa->len = 0;
+    pa->reserved = 10;
+    pa->points = malloc(10*sizeof(point_t));
 }
 
 // Resets the array to be empty, freeing any memory allocated if necessary.
 void point_array_reset( point_array_t* pa )
 {
     assert(pa);
-    point_t* new_pts = malloc(10 * sizeof(point_t));
-    if (new_pts)
-    {
-        free(pa->points);
-        pa->points = new_pts;
-        pa->reserved = 10;
-        pa->len = 0;
-
-    }
-    
+    if (pa->points) free(pa->points);
+    free(pa);
+    point_array_init(pa);
 }
 
 // Append a point to the end of an array. If successful, return 0, else return 1.
@@ -50,20 +28,15 @@ int point_array_append( point_array_t* pa, point_t* p )
     point_t* pts = NULL;
     if (pa->len == pa->reserved)
     {
-        pts = realloc(pa->points, pa->reserved * 2);
-    }
-
-    if (pts)
-    {
+        pts = realloc(pa->points, (pa->reserved * 2) * sizeof(point_t));
+        if (pts == NULL) return 1;
         pa->points = pts;
-        pa->points[pa->len] = *p;
-        pa->reserved *= 2;
-        pa->len += 1;
+        pa->reserved += 1;
     }
-    else
-    {
-        return 1;
-    }
+    
+    pa->points[pa->len] = *p;
+    pa->len += 1;
+
     return 0;
 }
 
@@ -72,34 +45,10 @@ int point_array_append( point_array_t* pa, point_t* p )
 // If successful, return 0, else return 1. 
 int point_array_remove( point_array_t* pa, unsigned int i )
 {
-    assert(pa);
-    if (i >= pa->len) return 1;
-    if (pa->len < 1) return 1;
-
-    point_t* pts = NULL;
-    if (pa->len - 1 <= pa->reserved / 2 && pa->reserved/2 >= 10)
-    {
-        pts = realloc(pa->points, pa->reserved/2);
-    }
-
-    if (pts)
-    {
-        pa->points = pts;
-    }
-    else
-    {
-        return 1;
-    }
-    
-    for (unsigned int index = i; index < pa->len - 1; index++)
-    {
-        pa->points[index] = pa->points[index + 1];
-    }
-
+    point_t to_remove = pa->points[pa->len-1];
+    pa->points[pa->len-1] = pa->points[i];
+    pa->points[pa->len-1] = to_remove;
     pa->len -= 1;
-    pa->reserved /= 2;
-    
-    return 0;
 }
 
 
