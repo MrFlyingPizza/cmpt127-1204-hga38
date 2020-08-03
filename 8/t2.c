@@ -45,10 +45,15 @@ int point_array_append( point_array_t* pa, point_t* p )
 // If successful, return 0, else return 1. 
 int point_array_remove( point_array_t* pa, unsigned int i )
 {
-    point_t to_remove = pa->points[pa->len-1];
-    pa->points[pa->len-1] = pa->points[i];
+    assert(pa);
+    if (i >= pa->len)
+        return 1;
+    
+    point_t to_remove = pa->points[i];
+    pa->points[i] = pa->points[pa->len - 1];
     pa->points[pa->len-1] = to_remove;
     pa->len -= 1;
+    return 0;
 }
 
 
