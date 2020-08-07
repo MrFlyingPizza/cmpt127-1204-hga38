@@ -61,6 +61,12 @@ int Image::set_pixel(unsigned int x, unsigned int y, uint8_t colour)
 
 int Image::get_pixel(unsigned int x, unsigned int y, uint8_t* colourp)
 {
+    if (colourp == NULL)
+    {
+        std::cerr << "NULL colour pointer." << std::endl;
+        return 3;
+    }
+    
     if (x >= cols || y >= rows)
     {
         std::cerr << "Coordinate out of bounds!" << std::endl;
@@ -108,7 +114,7 @@ int Image::load(const char* filename)
         std::cerr << "Filename does not exist." << std::endl;
         return 2;
     }
-    
+
     try
     {
         std::ifstream file(filename, std::ios::in | std::ios::binary);

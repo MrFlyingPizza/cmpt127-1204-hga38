@@ -76,6 +76,12 @@ int Image::set_pixel(unsigned int x, unsigned int y, uint8_t colour)
     code. */
 int Image::get_pixel(unsigned int x, unsigned int y, uint8_t *colourp)
 {
+    if (colourp == NULL)
+    {
+        std::cerr << "NULL colour pointer." << std::endl;
+        return 3;
+    }
+
     if (x >= cols || y >= rows)
     {
         std::cerr << "Pixel target out of bounds.\n";
