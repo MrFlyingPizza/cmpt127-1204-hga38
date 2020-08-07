@@ -92,7 +92,8 @@ int Image::save(const char *filename)
         {
             file << pixels[i];
         }
-        
+
+        file.close();
     }
     else
     {
@@ -109,12 +110,12 @@ int Image::load(const char *filename)
 {
     try
     {
-        std::ifstream file(filename, std::ios::out | std::ios::binary);
+        std::ifstream file(filename, std::ios::in | std::ios::binary);
         for (unsigned int i = 0; i < cols*rows; i++)
         {
             file >> pixels[i];
         }
-
+        file.close();
     }
     catch(const std::exception& e)
     {
