@@ -39,7 +39,7 @@ int Image::resize(unsigned int width, unsigned int height, uint8_t fillcolour)
     pixel, the call fails and the image does not change.*/
 int Image::set_pixel(unsigned int x, unsigned int y, uint8_t colour)
 {
-    if (x > cols || y > rows)
+    if (x >= cols || y >= rows)
     {
         std::cerr << "Pixel target out of bounds.\n";
         return 1;
@@ -62,7 +62,7 @@ int Image::set_pixel(unsigned int x, unsigned int y, uint8_t colour)
     code. */
 int Image::get_pixel(unsigned int x, unsigned int y, uint8_t *colourp)
 {
-    if (x > cols || y > rows)
+    if (x >= cols || y >= rows)
     {
         std::cerr << "Pixel target out of bounds.\n";
         return 1;
