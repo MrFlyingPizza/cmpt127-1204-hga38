@@ -88,7 +88,11 @@ int Image::save(const char *filename)
     std::ofstream file(filename, std::ios::out | std::ios::binary);
     if (file.is_open())
     {
-        file << pixels;
+        for (unsigned int i = 0; i < cols*rows; i++)
+        {
+            file << pixels[i];
+        }
+        
     }
     else
     {
@@ -106,7 +110,11 @@ int Image::load(const char *filename)
     try
     {
         std::ifstream file(filename, std::ios::out | std::ios::binary);
-        file >> pixels;
+        for (unsigned int i = 0; i < cols*rows; i++)
+        {
+            file >> pixels[i];
+        }
+
     }
     catch(const std::exception& e)
     {
