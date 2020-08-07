@@ -112,6 +112,7 @@ int Image::load(const char *filename)
     {
         std::cout << "failed to load image." << std::endl;
         std::cerr << e.what() << '\n';
+        return 1;
     }
     return 0;
 }
