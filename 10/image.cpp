@@ -2,7 +2,6 @@
 #include <exception>
 #include <iostream>
 #include <fstream>
-#include <array>
 
 Image::Image() : cols(0), rows(0), pixels(NULL)
 {
