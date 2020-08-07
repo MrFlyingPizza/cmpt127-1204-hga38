@@ -74,6 +74,12 @@ int Image::get_pixel(unsigned int x, unsigned int y, uint8_t* colourp)
 
 int Image::save(const char* filename)
 {
+    if (filename == NULL)
+    {
+        std::cerr << "Filename does not exist." << std::endl;
+        return 2;
+    }
+    
     std::ofstream file(filename, std::ios::out | std::ios::binary);
     if (file.is_open())
     {
@@ -97,6 +103,12 @@ int Image::save(const char* filename)
 
 int Image::load(const char* filename)
 {
+    if (filename == NULL)
+    {
+        std::cerr << "Filename does not exist." << std::endl;
+        return 2;
+    }
+    
     try
     {
         std::ifstream file(filename, std::ios::in | std::ios::binary);
