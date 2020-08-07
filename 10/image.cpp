@@ -30,6 +30,11 @@ int Image::resize(unsigned int width, unsigned int height, uint8_t fillcolour)
     try
     {
         pixels = new uint8_t[width*height*sizeof(uint8_t)];
+        for (unsigned int i = 0; i < width*height; i++)
+        {
+            pixels[i];
+        }
+        
     }
     catch(const std::exception& e)
     {
