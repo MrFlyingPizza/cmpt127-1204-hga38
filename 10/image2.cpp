@@ -95,7 +95,7 @@ int Image::save(const char *filename)
         std::cout << "File not open to writing.\n";
         return 1;
     }
-    
+    return 0;
 }
 
 /* Load the an image from the file filename, replacing the current
@@ -103,6 +103,15 @@ int Image::save(const char *filename)
     save(). Returns 0 success, else a non-zero error code . */
 int Image::load(const char *filename)
 {
-    std::ifstream file(filename, std::ios::out | std::ios::binary);
-    file >> pixels;
+    try
+    {
+        std::ifstream file(filename, std::ios::out | std::ios::binary);
+        file >> pixels;
+    }
+    catch(const std::exception& e)
+    {
+        std::cout << "failed to load image." << std::endl;
+        std::cerr << e.what() << '\n';
+    }
+    return 0;
 }
