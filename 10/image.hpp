@@ -31,8 +31,4 @@ public:
   /* Gets the colour of the pixel at (x,y) and stores at the address pointed to 
      by colourp. Returns 0 on success, else a non-zero error code. */
   int get_pixel( unsigned int x, unsigned int y, uint8_t* colourp );
-
-  int save(const char *filename);
-
-  int load(const char *filename);
 };
