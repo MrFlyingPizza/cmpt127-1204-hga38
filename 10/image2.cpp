@@ -17,15 +17,11 @@ Image::~Image()
     non-zero error code.*/
 int Image::resize(unsigned int width, unsigned int height, uint8_t fillcolour)
 {
-    uint8_t* new_pixels = (uint8_t*) realloc(pixels, sizeof(uint8_t)*width*height);
-    if (new_pixels == nullptr)
-        return 1;
+    if (pixels != nullptr) delete[] this->pixels;
+    this->pixels = new uint8_t[width*height];
 
-    this->pixels = new_pixels;
     for (unsigned int i = 0; i < width*height; i++)
-    {
         pixels[i] = fillcolour;
-    }
     
     this->cols = width;
     this->rows = height;
