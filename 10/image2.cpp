@@ -3,13 +3,15 @@
 #include <fstream>
 #include <exception>
 
-Image::Image() : cols(0), rows(0), pixels(nullptr)
+Image::Image() : cols(0), rows(0), pixels(NULL)
 {
 }
 
 Image::~Image()
 {
+    //std::cout << "Destructor called @ " << &(this->pixels) << std::endl;
     delete[] pixels;
+    //std::cout << "Good" << std::endl;
 }
 
 /* Changes the size of an image, allocating memory as necessary, and
@@ -17,7 +19,7 @@ Image::~Image()
     non-zero error code.*/
 int Image::resize(unsigned int width, unsigned int height, uint8_t fillcolour)
 {
-    if (pixels != nullptr) delete[] this->pixels;
+    if (pixels != NULL) delete[] this->pixels;
     this->pixels = new uint8_t[width*height];
 
     for (unsigned int i = 0; i < width*height; i++)
@@ -57,9 +59,9 @@ int Image::set_pixel(unsigned int x, unsigned int y, uint8_t colour)
     code. */
 int Image::get_pixel(unsigned int x, unsigned int y, uint8_t *colourp)
 {
-    if (colourp == nullptr)
+    if (colourp == NULL)
     {
-        std::cerr << "nullptr colour pointer." << std::endl;
+        std::cerr << "NULL colour pointer." << std::endl;
         return 3;
     }
 
@@ -86,7 +88,7 @@ int Image::get_pixel(unsigned int x, unsigned int y, uint8_t *colourp)
     code. */
 int Image::save(const char *filename)
 {
-    if (filename == nullptr)
+    if (filename == NULL)
     {
         return 2;
     }
@@ -113,7 +115,7 @@ int Image::save(const char *filename)
     save(). Returns 0 success, else a non-zero error code . */
 int Image::load(const char *filename)
 {
-    if (filename == nullptr)
+    if (filename == NULL)
     {
         return 2;
     }
@@ -123,6 +125,7 @@ int Image::load(const char *filename)
     {
         file.read((char*) &rows, sizeof(unsigned int));
         file.read((char*) &cols, sizeof(unsigned int));
+        std::cout << "cols " << cols << " rows " << rows << std::endl;
         resize(cols, rows, 0);
         file.read((char*) &pixels, sizeof(uint8_t)*cols*rows);
         
