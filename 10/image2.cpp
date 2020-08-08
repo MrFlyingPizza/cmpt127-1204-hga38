@@ -3,7 +3,7 @@
 #include <fstream>
 #include <exception>
 
-Image::Image() : cols(0), rows(0), pixels(NULL)
+Image::Image() : cols(0), rows(0), pixels(nullptr)
 {
 }
 
@@ -17,29 +17,14 @@ Image::~Image()
     non-zero error code.*/
 int Image::resize(unsigned int width, unsigned int height, uint8_t fillcolour)
 {
-    try
-    {
-        delete[] pixels;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
+    uint8_t* new_pixels = (uint8_t*) realloc(pixels, sizeof(uint8_t)*width*height);
+    if (new_pixels == nullptr)
         return 1;
-    }
 
-    try
+    this->pixels = new_pixels;
+    for (unsigned int i = 0; i < width*height; i++)
     {
-        pixels = new uint8_t[width*height];
-        for (unsigned int i = 0; i < width*height; i++)
-        {
-            pixels[i] = fillcolour;
-        }
-        
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-        return 2;
+        pixels[i] = fillcolour;
     }
     
     this->cols = width;
@@ -76,9 +61,9 @@ int Image::set_pixel(unsigned int x, unsigned int y, uint8_t colour)
     code. */
 int Image::get_pixel(unsigned int x, unsigned int y, uint8_t *colourp)
 {
-    if (colourp == NULL)
+    if (colourp == nullptr)
     {
-        std::cerr << "NULL colour pointer." << std::endl;
+        std::cerr << "nullptr colour pointer." << std::endl;
         return 3;
     }
 
@@ -105,7 +90,7 @@ int Image::get_pixel(unsigned int x, unsigned int y, uint8_t *colourp)
     code. */
 int Image::save(const char *filename)
 {
-    if (filename == NULL)
+    if (filename == nullptr)
     {
         return 2;
     }
@@ -113,12 +98,9 @@ int Image::save(const char *filename)
     std::ofstream file(filename, std::ios::out | std::ios::binary);
     if (file.is_open())
     {
-        file << rows;
-        file << cols;
-        for (unsigned int i = 0; i < cols*rows; i++)
-        {
-            file << pixels[i];
-        }
+        file.write((char*) &rows, sizeof(unsigned int));
+        file.write((char*) &cols, sizeof(unsigned int));
+        file.write((char*) &pixels, sizeof(uint8_t) * cols * rows);
 
         file.close();
     }
@@ -135,7 +117,7 @@ int Image::save(const char *filename)
     save(). Returns 0 success, else a non-zero error code . */
 int Image::load(const char *filename)
 {
-    if (filename == NULL)
+    if (filename == nullptr)
     {
         return 2;
     }
@@ -143,13 +125,11 @@ int Image::load(const char *filename)
     std::ifstream file(filename, std::ios::in | std::ios::binary);
     if (file.is_open())
     {
-        file >> rows;
-        file >> cols;
+        file.read((char*) &rows, sizeof(unsigned int));
+        file.read((char*) &cols, sizeof(unsigned int));
         resize(cols, rows, 0);
-        for (unsigned int i = 0; i < cols*rows; i++)
-        {
-            file >> pixels[i];
-        }
+        file.read((char*) &pixels, sizeof(uint8_t)*cols*rows);
+        
         file.close();
     }
     else
