@@ -97,6 +97,11 @@ int Image::get_pixel(unsigned int x, unsigned int y, uint8_t *colourp)
     code. */
 int Image::save(const char *filename)
 {
+    if (filename == NULL)
+    {
+        return 2;
+    }
+    
     std::ofstream file(filename, std::ios::out | std::ios::binary);
     if (file.is_open())
     {
@@ -120,19 +125,23 @@ int Image::save(const char *filename)
     save(). Returns 0 success, else a non-zero error code . */
 int Image::load(const char *filename)
 {
-    try
+    if (filename == NULL)
     {
-        std::ifstream file(filename, std::ios::in | std::ios::binary);
+        return 2;
+    }
+    
+    std::ifstream file(filename, std::ios::in | std::ios::binary);
+    if (file.is_open())
+    {
         for (unsigned int i = 0; i < cols*rows; i++)
         {
             file >> pixels[i];
         }
         file.close();
     }
-    catch(const std::exception& e)
+    else
     {
-        std::cout << "failed to load image." << std::endl;
-        std::cerr << e.what() << '\n';
+        std::cout << "File not open to writing.\n";
         return 1;
     }
     return 0;

@@ -114,10 +114,10 @@ int Image::load(const char* filename)
         std::cerr << "Filename does not exist." << std::endl;
         return 2;
     }
-
-    try
+    
+    std::ifstream file(filename, std::ios::in | std::ios::binary);
+    if (file.is_open())
     {
-        std::ifstream file(filename, std::ios::in | std::ios::binary);
         for (unsigned int i = 0; i < rows; i++)
         {
             for (unsigned int j = 0; j < cols; j++)
@@ -128,10 +128,9 @@ int Image::load(const char* filename)
         }
         file.close();
     }
-    catch(const std::exception& e)
+    else
     {
-        std::cout << "failed to load image." << std::endl;
-        std::cerr << e.what() << '\n';
+        std::cout << "File not open to writing.\n";
         return 1;
     }
     return 0;
