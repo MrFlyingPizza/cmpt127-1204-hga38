@@ -98,7 +98,15 @@ int Image::save(const char *filename)
     {
         file.write((char*) &rows, sizeof(unsigned int));
         file.write((char*) &cols, sizeof(unsigned int));
-        file.write((char*) &pixels, sizeof(uint8_t) * cols * rows);
+
+        if (rows != 0 && cols != 0)
+        {
+            for (unsigned int i = 0; i < rows * cols; i++)
+            {
+                file.write((char*) &(pixels[i]), sizeof(uint8_t));
+            }
+            
+        }
 
         file.close();
     }
@@ -126,8 +134,15 @@ int Image::load(const char *filename)
         file.read((char*) &rows, sizeof(unsigned int));
         file.read((char*) &cols, sizeof(unsigned int));
         resize(cols, rows, 0);
-        file.read((char*) &pixels, sizeof(uint8_t)*cols*rows);
-        
+        if (rows != 0 && cols != 0)
+        {
+            for (unsigned int i = 0; i < rows * cols; i++)
+            {
+                file.read((char*) &(pixels[i]), sizeof(uint8_t));
+            }
+            
+        }
+
         file.close();
     }
     else
