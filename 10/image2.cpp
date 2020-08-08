@@ -125,7 +125,6 @@ int Image::load(const char *filename)
     {
         file.read((char*) &rows, sizeof(unsigned int));
         file.read((char*) &cols, sizeof(unsigned int));
-        std::cout << "cols " << cols << " rows " << rows << std::endl;
         resize(cols, rows, 0);
         file.read((char*) &pixels, sizeof(uint8_t)*cols*rows);
         
