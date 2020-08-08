@@ -3,6 +3,14 @@
 #include <fstream>
 #include <exception>
 
+Image::Image() : cols(0), rows(0), pixels(NULL)
+{
+}
+
+Image::~Image()
+{
+    delete[] pixels;
+}
 
 /* Changes the size of an image, allocating memory as necessary, and
     setting all pixels to fillcolour. Returns 0 on success, or a
@@ -73,7 +81,7 @@ int Image::get_pixel(unsigned int x, unsigned int y, uint8_t *colourp)
         std::cerr << "NULL colour pointer." << std::endl;
         return 3;
     }
-    
+
     if (x >= cols || y >= rows)
     {
         std::cerr << "Pixel target out of bounds.\n";
@@ -105,6 +113,8 @@ int Image::save(const char *filename)
     std::ofstream file(filename, std::ios::out | std::ios::binary);
     if (file.is_open())
     {
+        file << rows;
+        file << cols;
         for (unsigned int i = 0; i < cols*rows; i++)
         {
             file << pixels[i];
@@ -133,6 +143,9 @@ int Image::load(const char *filename)
     std::ifstream file(filename, std::ios::in | std::ios::binary);
     if (file.is_open())
     {
+        file >> rows;
+        file >> cols;
+        resize(cols, rows, 0);
         for (unsigned int i = 0; i < cols*rows; i++)
         {
             file >> pixels[i];

@@ -89,6 +89,8 @@ int Image::save(const char* filename)
     std::ofstream file(filename, std::ios::out | std::ios::binary);
     if (file.is_open())
     {
+        file << rows;
+        file << cols;
         for (unsigned int i = 0; i < rows; i++)
         {
             for (unsigned int j = 0; j < cols; j++)
@@ -118,6 +120,9 @@ int Image::load(const char* filename)
     std::ifstream file(filename, std::ios::in | std::ios::binary);
     if (file.is_open())
     {
+        file >> rows;
+        file >> cols;
+        resize(cols, rows, 0);
         for (unsigned int i = 0; i < rows; i++)
         {
             for (unsigned int j = 0; j < cols; j++)
