@@ -2,67 +2,91 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void append(list_t* list, element_t* el)
+unsigned int list_size(list_t* list)
 {
+    element_t* el = list->head;
+    unsigned int size = 0;
+    while (el != NULL)
+    {
+        ++size;
+        el = el->next;
+    }
     
+    return size;
 }
 
-void merging(element_t* left_l, element_t* left_r, element_t* right_l, element_t* right_r)
+list_t* list_merge(list_t* list_a, list_t* list_b)
 {
-    int temp_val = 0;
-    element_t *temp_el_1 = NULL, *temp_el_2 = NULL;
-    while (left_l != left_r->next && right_l != right_r->next)
+    list_t* result = list_create();
+    element_t *el_a, *el_b;
+    while (el_a != NULL && el_b != NULL)
     {
-        if (left_l->val < right_l->val)
+        if (el_a->val < el_b->val)
         {
-            left_l = left_l->next;
+            list_append(result, el_a->val);
+            el_a = el_a->next;
         }
         else
         {
-            temp_val = left_l->val;
-            left_l->val = right_l->val;
-            right_l->val = temp_val;
-
-            temp_el_1 = left_l->next;
-            left_l->next = right_l;
-
-            temp_el_2 = right_l->next;
-            right_l->next = temp_el_1;
-
-            temp_el_1->next = temp_el_2;
-
-            right_l = temp_el_2;
+            list_append(result, el_b->val);
+            el_b = el_b->next;
         }
-        
         
     }
     
-}
-
-void sorting(element_t* left, element_t* right)
-{
-    element_t *moving_left = left, *moving_right = right;
-    while (moving_right != right)
+    while (el_a != NULL)
     {
-        moving_right = moving_right->next;
-        if (moving_right != right)
-        {
-            moving_left = moving_left->next;
-            moving_right = moving_right->next;
-        }
-
+        list_append(result, el_a->val);
+        el_a = el_a->next;
+    }
+    
+    while (el_b != NULL)
+    {
+        list_append(result, el_b->val);
+        el_b = el_b->next;
     }
 
-    sorting(left, moving_left);
-    sorting(moving_left->next, right);
+    list_destroy(list_a);
+    list_destroy(list_b);
 
-    //merging(moving_left->next, right);
+    return result;
 }
 
 void list_sort(list_t* list)
 {
+    if (list == NULL)
+    {
+        return;
+    }
+
+    if (list->head == list->tail)
+    {
+        return;
+    }
+    
     unsigned int size = list_size(list);
-    printf("size: %u\n", size);
+    unsigned int middle = size/2;
+    
+    list_t *list_a = list_create(), *list_b = list_create();
+    for (unsigned int i = 0; i < size; i++)
+    {
+        if (i < middle)
+        {
+            list_append(list_a, list_index(list, i)->val);
+        }
+        else
+        {
+            list_append(list_b, list_index(list, i)->val);
+        }
+        
+    }
+
+    list_sort(list_a);
+    list_sort(list_b);
+
+    list_t* result = list_merge(list_a, list_b);
+    
+    list = result;
 }
 
 int main()
