@@ -78,28 +78,28 @@ void list_sort(list_t* list)
     list->tail = el;
 }
 
-int main()
-{
-    list_t *list = list_create();
-    int len = 100000;
-    for (int i = 0; i < len; i++)
-    {
-        list_append(list, rand() % 1000);
-    }
-    puts("testing...");
-    list_sort(list);
+// int main()
+// {
+//     list_t *list = list_create();
+//     int len = 100000;
+//     for (int i = 0; i < len; i++)
+//     {
+//         list_append(list, rand() % 1000);
+//     }
+//     puts("testing...");
+//     list_sort(list);
 
-    for (int i = 0; i < len - 1; i++)
-    {
-        printf("CHECKING INDEX: %d\n", i);
-        if (list_index(list, i)->val > list_index(list, i + 1)->val)
-        {
-            printf("Failed check at index: %d\n", i);
-        }
+//     for (int i = 0; i < len - 1; i++)
+//     {
+//         printf("CHECKING INDEX: %d\n", i);
+//         if (list_index(list, i)->val > list_index(list, i + 1)->val)
+//         {
+//             printf("Failed check at index: %d\n", i);
+//         }
         
-    }
+//     }
 
-    list_print(list);
+//     list_print(list);
     
-    return 0;
-}
+//     return 0;
+// }
