@@ -2,100 +2,86 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-unsigned int list_size(list_t* list)
+element_t* merge_sorted(element_t* a, element_t* b)
 {
-    element_t* el = list->head;
-    unsigned int size = 0;
-    while (el != NULL)
-    {
-        ++size;
-        el = el->next;
-    }
+    element_t* result = NULL;
 
-    return size;
+    if (a == NULL)
+    {
+        return b;
+    }
+    else if (b == NULL)
+    {
+        return a;
+    }
+    
+    if (a->val <= b->val)
+    {
+        result = a;
+        result->next = merge_sorted(a->next, b);
+    }
+    else
+    {
+        result = b;
+        result->next = merge_sorted(a, b->next);
+    }
+    return result;
 }
 
-list_t* list_merge(list_t* list_a, list_t* list_b)
+void list_split(element_t* head, element_t** a, element_t** b)
 {
-    list_t* result = list_create();
-    element_t *el_a = list_a->head, *el_b = list_b->head;
-    
-    while (el_a != NULL && el_b != NULL)
+    element_t *fast, *slow;
+    slow = head;
+    fast = head->next;
+
+    while (fast != NULL)
     {
-        if (el_a->val < el_b->val)
+        fast = fast->next;
+        if (fast != NULL)
         {
-            if (list_append(result, el_a->val) == 1) puts("it no work");
-            el_a = el_a->next;
-        }
-        else
-        {
-            if (list_append(result, el_b->val) == 1) puts("it no work");
-            el_b = el_b->next;
+            slow = slow->next;
+            fast = fast->next;
         }
         
     }
+    
+    *a = head;
+    *b = slow->next;
+    slow->next = NULL;
+}
 
-    while (el_a != NULL)
+void _list_sort(element_t** headRef)
+{
+    element_t* head = *headRef, *a, *b;
+
+    if (head == NULL || head->next == NULL)
     {
-        if (list_append(result, el_a->val) == 1) puts("it no work");
-        el_a = el_a->next;
+        return;
     }
     
-    while (el_b != NULL)
-    {
-        if (list_append(result, el_b->val) == 1) puts("it no work");
-        el_b = el_b->next;
-    }
+    list_split(head, &a, &b);
 
-    return result;
+    _list_sort(&a);
+    _list_sort(&b);
+
+    *headRef = merge_sorted(a, b);
 }
 
 void list_sort(list_t* list)
 {
-    if (list == NULL)
+    _list_sort(&(list->head));
+    element_t* el = list->head;
+    while (el->next != NULL)
     {
-        return;
+        el = el->next;
     }
-
-    if (list->head == list->tail)
-    {
-        return;
-    }
-    
-    unsigned int size = list_size(list);
-    unsigned int middle = size/2;
-    
-    list_t *list_a = list_create(), *list_b = list_create();
-    
-    for (unsigned int i = 0; i < size; i++)
-    {
-        if (i < middle)
-        {
-            if (list_append(list_a, list_index(list, i)->val) != 0) puts("it no work");
-        }
-        else
-        {
-            if (list_append(list_b, list_index(list, i)->val) != 0) puts("it no work");
-        }
-        
-    }
-
-    list_sort(list_a);
-    list_sort(list_b);
-
-    list_t* result = list_merge(list_a, list_b);
-    
-    list_destroy(list);
-    list = list_create();
-
-    list->head = result->head;
-    list->tail = result->tail;
+    list->tail = el;
 }
 
 int main()
 {
     list_t *list = list_create();
-    int len = 7;
+    int len = 100000;
     for (int i = 0; i < len; i++)
     {
         list_append(list, rand() % 1000);
